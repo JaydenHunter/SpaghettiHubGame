@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿//Written by Jayden Hunter
+using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(CatStateMachine))]

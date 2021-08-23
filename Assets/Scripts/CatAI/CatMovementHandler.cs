@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//Written by Jayden Hunter
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -62,8 +63,9 @@ public class CatMovementHandler : MonoBehaviour
 					Vector3 forceDir = forward + up + randDir;
 
 					tarRB.AddRelativeForce(forceDir * hitForce, ForceMode.Impulse);
-
 					catFSM.AnimationHandler.PlayAnimation(CatAnimation.Jump);
+
+					rigidBody.velocity = rigidBody.velocity.normalized * 0;
 				}
 			}
 		}

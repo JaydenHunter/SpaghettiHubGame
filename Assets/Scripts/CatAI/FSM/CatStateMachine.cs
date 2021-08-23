@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿//Written by Jayden Hunter
+
+using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public enum ECatState
@@ -42,7 +43,7 @@ public class CatStateMachine : MonoBehaviour
 
 	private void Start()
 	{
-		ChangeState(ECatState.Idle);		
+		ChangeState(ECatState.Goto);		
 	}
 
 	private void Update()
