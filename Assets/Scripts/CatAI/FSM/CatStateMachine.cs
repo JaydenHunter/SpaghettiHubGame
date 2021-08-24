@@ -1,6 +1,5 @@
 ﻿//Written by Jayden Hunter
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,14 +8,15 @@ public enum ECatState
 	Idle,
 	Wander,
 	Follow,
-	Goto,
-	Eat
+	PlayBall,
+	Eat,
+	Sleep
 }
 
 [RequireComponent(typeof(CatStateIdle))]
 [RequireComponent(typeof(CatStateWander))]
 [RequireComponent(typeof(CatStateFollow))]
-[RequireComponent(typeof(CatStateGoTo))]
+[RequireComponent(typeof(CatStatePlayBall))]
 [RequireComponent(typeof(CatStateEat))]
 public class CatStateMachine : MonoBehaviour
 {
@@ -24,6 +24,7 @@ public class CatStateMachine : MonoBehaviour
 	private CatState currentState = null;
 	private CatState previousState = null;
 	private CatManager manager;
+
 	private void Awake()
 	{
 		states = new Dictionary<ECatState, CatState>();
@@ -31,7 +32,7 @@ public class CatStateMachine : MonoBehaviour
 		states.Add(ECatState.Idle, GetComponent<CatStateIdle>());
 		states.Add(ECatState.Wander, GetComponent<CatStateWander>());
 		states.Add(ECatState.Follow, GetComponent<CatStateFollow>());
-		states.Add(ECatState.Goto, GetComponent<CatStateGoTo>());
+		states.Add(ECatState.PlayBall, GetComponent<CatStatePlayBall>());
 		states.Add(ECatState.Eat, GetComponent<CatStateEat>());
 
 		previousState = states[ECatState.Idle];
@@ -41,7 +42,7 @@ public class CatStateMachine : MonoBehaviour
 
 	private void Start()
 	{
-		ChangeState(ECatState.Goto);		
+		ChangeState(ECatState.Idle);		
 	}
 
 	private void Update()
