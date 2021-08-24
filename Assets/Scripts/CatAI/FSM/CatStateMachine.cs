@@ -35,6 +35,8 @@ public class CatStateMachine : MonoBehaviour
 		states.Add(ECatState.Eat, GetComponent<CatStateEat>());
 
 		previousState = states[ECatState.Idle];
+
+		manager = GetComponent<CatManager>();
 	}
 
 	private void Start()
