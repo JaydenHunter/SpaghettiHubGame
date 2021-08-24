@@ -7,7 +7,7 @@ public class CatStateEat : CatState
 {
 	public Transform foodBowl;
 	public float minDistToEat = 1.0f;
-	public float hungerReduction = 1; //Put this on the food
+	public float hungerReduction = 0.05f; //Put this on the food
 	private float maxSpeed = 1;
 	public override void OnEnter()
 	{
