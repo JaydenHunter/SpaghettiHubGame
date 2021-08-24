@@ -24,7 +24,7 @@ public class CatAnimationHandler : MonoBehaviour
 		animations.Add(CatAnimation.Idle, "Idle");
 		animations.Add(CatAnimation.Eat, "Eat");
 		animations.Add(CatAnimation.Jump, "Jump");
-		animations.Add(CatAnimation.Sound,"Sound");
+		animations.Add(CatAnimation.Sound, "Sound");
 		animations.Add(CatAnimation.Walk, "Walk");
 		PlayAnimation(CatAnimation.Idle);
 	}
@@ -35,11 +35,14 @@ public class CatAnimationHandler : MonoBehaviour
 	/// <param name="animation"></param>
 	/// <param name="setAllFalse"></param>
 	/// <returns></returns>
-	public bool PlayAnimation(CatAnimation animation,bool setAllFalse = true)
+	public bool PlayAnimation(CatAnimation animation, bool setAllFalse = true, bool resetSpeed = true)
 	{
-		if(setAllFalse)
+		if (resetSpeed)
+			animator.speed = 1;
+
+		if (setAllFalse)
 		{
-			foreach(string animationName in animations.Values)
+			foreach (string animationName in animations.Values)
 			{
 				animator.SetBool(animationName, false);
 			}
@@ -56,6 +59,11 @@ public class CatAnimationHandler : MonoBehaviour
 		return false;
 	}
 
+	public bool PlayAnimation(CatAnimation animation, float animationSpeed, bool setAllFalse = true)
+	{
+		animator.speed = animationSpeed;
+		return PlayAnimation(animation, true, false);
+	}
 
 
 }

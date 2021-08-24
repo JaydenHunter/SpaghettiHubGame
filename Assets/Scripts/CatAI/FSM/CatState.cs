@@ -6,10 +6,11 @@ using UnityEngine;
 public class CatState : MonoBehaviour
 {
 	protected CatStateMachine stateMachine = null;
-
+	protected CatManager manager;
 	private void Awake()
 	{
 		stateMachine = GetComponent<CatStateMachine>();
+		manager = GetComponent<CatManager>();
 	}
 
 	public virtual void OnEnter()

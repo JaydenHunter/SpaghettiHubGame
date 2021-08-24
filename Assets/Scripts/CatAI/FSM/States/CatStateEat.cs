@@ -7,7 +7,7 @@ public class CatStateEat : CatState
 {
 	public override void OnEnter()
 	{
-		stateMachine.AnimationHandler.PlayAnimation(CatAnimation.Eat);
+		manager.AnimationHandler.PlayAnimation(CatAnimation.Eat);
 	}
 
 	public override void OnUpdate()

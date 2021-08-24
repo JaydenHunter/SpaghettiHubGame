@@ -9,7 +9,7 @@ public class CatStateGoTo : CatState
 
 	public override void OnEnter()
 	{
-		stateMachine.AnimationHandler.PlayAnimation(CatAnimation.Walk);
+		manager.AnimationHandler.PlayAnimation(CatAnimation.Walk);
 	}
 
 	public override void OnUpdate()
@@ -19,7 +19,7 @@ public class CatStateGoTo : CatState
 
 	public override void OnFixedUpdate()
 	{
-		stateMachine.MovementHandler.MoveTowardsTargetWithRotation();
+		manager.MovementHandler.MoveTowardsTargetWithRotation();
 	}
 
 	public override void OnExit()

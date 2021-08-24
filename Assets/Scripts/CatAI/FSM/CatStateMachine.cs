@@ -23,13 +23,9 @@ public class CatStateMachine : MonoBehaviour
 	private Dictionary<ECatState, CatState> states = null;
 	private CatState currentState = null;
 	private CatState previousState = null;
-	private CatAnimationHandler animationHandler = null;
-	private CatMovementHandler movementHandler = null;
-
+	private CatManager manager;
 	private void Awake()
 	{
-		animationHandler = GetComponent<CatAnimationHandler>();
-		movementHandler = GetComponent<CatMovementHandler>();
 		states = new Dictionary<ECatState, CatState>();
 
 		states.Add(ECatState.Idle, GetComponent<CatStateIdle>());
@@ -71,6 +67,5 @@ public class CatStateMachine : MonoBehaviour
 
 	public CatState CurrentState { get => currentState; }
 	public CatState PreviousState { get => previousState;}
-	public CatAnimationHandler AnimationHandler { get => animationHandler; }
-	public CatMovementHandler MovementHandler { get => movementHandler; }
+	public CatManager Manager { get => manager; }
 }

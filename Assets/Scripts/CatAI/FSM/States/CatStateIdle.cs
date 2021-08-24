@@ -7,7 +7,7 @@ public class CatStateIdle : CatState
 {
 	public override void OnEnter()
 	{
-		stateMachine.AnimationHandler.PlayAnimation(CatAnimation.Idle);
+		manager.AnimationHandler.PlayAnimation(CatAnimation.Idle);
 	}
 
 	public override void OnUpdate()

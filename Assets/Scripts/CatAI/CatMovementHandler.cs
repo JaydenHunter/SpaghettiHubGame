@@ -17,14 +17,18 @@ public class CatMovementHandler : MonoBehaviour
 	[SerializeField] private float hitDistance = 1.5f;
 	[SerializeField] private float hitForce = 1000f;
 	[SerializeField] private float hitCooldown = 2;
+	private float hitTimer = 0;
 	private float rotationSpeed = 35f;
-	private CatStateMachine catFSM;
+	private CatManager manager;
+	[SerializeField] private float animationSpeedMultiplier = 0.25f;
+	[SerializeField] private float minVelocityToWalk = 0.25f;
 
 	private Rigidbody rigidBody = null;
 
 	private void Awake()
 	{
-		catFSM = GetComponent<CatStateMachine>();
+		hitTimer = hitCooldown;
+		manager = GetComponent<CatManager>();
 		rigidBody = GetComponent<Rigidbody>();
 	}
 
@@ -35,12 +39,18 @@ public class CatMovementHandler : MonoBehaviour
 
 	public void MoveTowardsTargetWithRotation()
 	{
-		if(followTarget )
+
+		hitTimer -= Time.deltaTime;
+
+		if (followTarget)
 		{
 			float distToTarget = Vector3.Distance(transform.position, followTarget.position);
 			if (distToTarget > stoppingDistance)
 			{
-				catFSM.AnimationHandler.PlayAnimation(CatAnimation.Walk);
+				if (rigidBody.velocity.magnitude > minVelocityToWalk)
+					manager.AnimationHandler.PlayAnimation(CatAnimation.Walk, rigidBody.velocity.magnitude * animationSpeedMultiplier);
+				else
+					manager.AnimationHandler.PlayAnimation(CatAnimation.Idle);
 				//Lerp this to rotate slowly
 				Vector3 lookAtVector = new Vector3(followTarget.position.x, transform.position.y, followTarget.position.z);
 				transform.LookAt(lookAtVector);
@@ -52,10 +62,10 @@ public class CatMovementHandler : MonoBehaviour
 			}
 
 			//Make this bool
-			if(distToTarget < hitDistance )
+			if (distToTarget < hitDistance && hitTimer <= 0)
 			{
 				Rigidbody tarRB = followTarget.GetComponent<Rigidbody>();
-				if(tarRB)
+				if (tarRB)
 				{
 					Vector3 forward = transform.forward;
 					Vector3 up = transform.up;
@@ -63,14 +73,15 @@ public class CatMovementHandler : MonoBehaviour
 					Vector3 forceDir = forward + up + randDir;
 
 					tarRB.AddRelativeForce(forceDir * hitForce, ForceMode.Impulse);
-					catFSM.AnimationHandler.PlayAnimation(CatAnimation.Jump);
-
+					manager.AnimationHandler.PlayAnimation(CatAnimation.Jump);
+					manager.SoundManager.PlaySingle("BallHit", 0.85f, 1.15f);
 					rigidBody.velocity = rigidBody.velocity.normalized * 0;
+					hitTimer = hitCooldown;
 				}
 			}
 		}
 
-		
+
 	}
 
 	public Vector3 GoToPosition { get => goToPosition; set => goToPosition = value; }
