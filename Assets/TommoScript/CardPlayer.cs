@@ -45,13 +45,44 @@ public class CardPlayer : MonoBehaviour
 
         }
         //check if we should use an 11 instead of a 1
-        //ace check()
+        AceCheck();
         cardIndex++;
         return handValue;
     }
-    // Update is called once per frame
-    void Update()
+
+    public void AceCheck()
     {
-        
+        //for each ace in the listr check
+        foreach (CardScript ace in aceList)
+        {
+            if (handValue +10 < 22 && ace.GetValueOfCard == 1)
+            {
+                //if converting, adjust card object value and hand
+                ace.GetValueOfCard = 11;
+                handValue += 10;
+            }
+            else if (handValue > 21 && ace.GetValueOfCard == 11)
+            {
+                //if converting, adjust gameobject value and hand value
+                ace.GetValueOfCard = 1;
+                handValue -= 10;
+            }
+        }
+        //aceList.Add(hand[cardIndex].GetComponent<CardScript>());
     }
+    //Get money
+    public int GetAdjustMoney { get => money; set => this.money = value; }
+    public void ResetHand()
+    {
+        for (int i = 0; i < hand.Length; i++)
+        {
+        hand[i].GetComponent<CardScript>().ResetCard();
+        hand[i].GetComponent<Image>().enabled = false;
+
+        }
+        cardIndex = 0;
+        handValue = 0;
+        aceList = new List<CardScript>();
+    }
+  
 }
