@@ -36,6 +36,8 @@ public class CatMoodHandler : MonoBehaviour
 	[SerializeField] private float maxTiredness = 100;
 	[SerializeField] public float tiredness = 25;
 
+	[SerializeField] private float happyThreshold = 60;
+
 	private void Awake()
 	{
 		manager = GetComponent<CatManager>();
@@ -65,7 +67,7 @@ public class CatMoodHandler : MonoBehaviour
 		{
 			currentMood = MoodStatus.Bored;
 		}
-		else if (hunger > 30 && tiredness > 30 && loneliness > 30 && boredom > 30)
+		else if (hunger < happyThreshold && tiredness < happyThreshold  && loneliness < happyThreshold && boredom < happyThreshold)
 		{
 			currentMood = MoodStatus.Happy;
 		}
@@ -77,25 +79,54 @@ public class CatMoodHandler : MonoBehaviour
 
 	public bool CheckPriorityChange(ECatState currentState)
 	{
-		if(currentState == ECatState.PlayBall)
+		if (currentState == ECatState.PlayBall)
 		{
-			if (currentMood == MoodStatus.Hungry || currentMood == MoodStatus.Tired || currentMood == MoodStatus.Happy)
+			if (currentMood == MoodStatus.Hungry || currentMood == MoodStatus.Tired )
 				return true;
-			else if (boredom <= 20)
+			else if (boredom <= 10)
 				return true;
 		}
 
-		else if(currentState == ECatState.Eat)
+		else if (currentState == ECatState.Eat)
 		{
-			if (hunger <= 0 || currentMood == MoodStatus.Happy)
+			if (hunger <= 10)
 				return true;
 		}
-		else if(currentState == ECatState.Wander)
+		else if (currentState == ECatState.Wander)
 		{
 			if (currentMood != MoodStatus.Moderate && currentMood != MoodStatus.Happy)
 				return true;
 		}
 		return false;
+	}
+
+	public ECatState GetDesiredState()
+	{
+		float value = happyThreshold;
+		ECatState desiredState = ECatState.Wander;
+
+		if (hunger > value)
+		{
+			value = hunger;
+			desiredState = ECatState.Eat;
+		}
+		if (boredom > value)
+		{
+			value = boredom;
+			desiredState = ECatState.PlayBall;
+		}
+		if (loneliness > value)
+		{
+			value = loneliness;
+			desiredState = ECatState.Wander; //Switch to want attention state
+		}
+		if (tiredness > value)
+		{
+			value = tiredness;
+			desiredState = ECatState.Sleep;
+		}
+		Debug.Log($"Desired State: {desiredState.ToString()} | Value: {value}");
+		return desiredState;
 	}
 
 	public MoodStatus CurrentMood { get => currentMood; }
