@@ -9,7 +9,7 @@ public class CatStateFollow : CatState
 
 	public override void OnEnter()
 	{
-		manager.AnimationHandler.PlayAnimation(CatAnimation.Walk);
+		manager.Animation.PlayAnimation(CatAnimation.Walk);
 	}
 
 	public override void OnUpdate()
