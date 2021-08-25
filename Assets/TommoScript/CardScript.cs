@@ -7,8 +7,7 @@ public class CardScript : MonoBehaviour
 {
     //value of card. 2 lf clubs = 2, ect
     private int value = 0;
-    SpriteRenderer sprRender;
-    Image m_image;
+    private Image m_image;
 
     private void Awake()
     {
@@ -25,12 +24,13 @@ public class CardScript : MonoBehaviour
     }
     public string GetSpriteName()
     {
-        return sprRender.sprite.name;
+        return m_image.sprite.name;
     }
     public void ResetCard()
     {
-        Sprite back = GameObject.Find("DeckController").GetComponent<DeckHand>().GetCardBack();
-        m_image.sprite = back;
+        Sprite back = GameObject.Find("Deck").GetComponent<DeckHand>().GetCardBack();
+        gameObject.GetComponent<Image>().sprite = back;
+       // m_image.sprite = back;
         //sprRender.sprite = back;
         value = 0;
 
