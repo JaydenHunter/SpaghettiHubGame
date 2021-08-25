@@ -26,7 +26,7 @@ public class CatStateIdle : CatState
 				stateMachine.ChangeState(ECatState.Wander);
 				break;
 			case MoodStatus.Moderate:
-				stateMachine.ChangeState(ECatState.Wander);
+				stateMachine.ChangeState(manager.Mood.GetDesiredState());
 				break;
 			case MoodStatus.Tired:
 				break;

@@ -5,7 +5,8 @@ public class CatStatePlayBall : CatState
 {
 	public Transform ball;
 	private float maxSpeed = 4;
-	private float boredomReduction = 0.05f;
+	public float boredomReduction = 0.05f;
+
 	public override void OnEnter()
 	{
 		manager.Animation.PlayAnimation(CatAnimation.Walk);
