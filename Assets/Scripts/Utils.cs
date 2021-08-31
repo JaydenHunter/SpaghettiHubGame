@@ -32,4 +32,9 @@ public static class Utils
 		return Mathf.Rad2Deg * 2.0f * Mathf.Atan(sensorSize * 0.5f / focalLength);
 	}
 
+	public static float ModifyFloatWithLimit(float increaseAmount,float maxAmount, float minAmount = 0)
+	{
+		return Mathf.Clamp(increaseAmount, minAmount, maxAmount);
+	}
+
 }
