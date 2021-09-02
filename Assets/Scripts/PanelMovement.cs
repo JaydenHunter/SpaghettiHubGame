@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using tmpro;
 
+//Coder of code: Keira
 
 public class PanelMovement : MonoBehaviour
 {
