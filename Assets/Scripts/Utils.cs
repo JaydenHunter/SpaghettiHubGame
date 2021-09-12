@@ -20,11 +20,12 @@ public static class Utils
 	}
 
 	/// <summary>
-	/// Convers a focal length value to a Field of View Value
+	/// Converts a focal length value to a Field of View Value
+	/// <para><c>int value = 5</c></para>
 	/// </summary>
 	/// <param name="focalLength"></param>
 	/// <param name="sensorSize"></param>
-	/// <returns></returns>
+	/// <returns>returns a float value that converts a Focal Length to POV</returns>
 	public static float FocalLengthToVerticalFOV(float focalLength, float sensorSize)
 	{
 		if (focalLength < 0.001f)
