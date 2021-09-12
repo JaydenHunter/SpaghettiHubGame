@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: a8d5487681a14764fad5520c7d167ac3
+  - enabled: 1
+    path: Assets/Scenes/TomMiniGame.unity
+    guid: bbde74158c359d84dbcdfee6db934305
   m_configObjects: {}
