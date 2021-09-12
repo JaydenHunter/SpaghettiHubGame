@@ -84,5 +84,6 @@ public class CardPlayer : MonoBehaviour
         handValue = 0;
         aceList = new List<CardScript>();
     }
+    
   
 }
