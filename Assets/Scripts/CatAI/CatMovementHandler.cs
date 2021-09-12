@@ -61,8 +61,15 @@ public class CatMovementHandler : MonoBehaviour
 					rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
 
 				//Rotate the Cat to face towards the Target overtime
-				Vector3 lookAtVector = new Vector3(followTarget.position.x, transform.position.y, followTarget.position.z);
-				rigidBody.transform.LookAt(lookAtVector);
+				//Vector3 lookAtVector = new Vector3(followTarget.position.x, transform.position.y, followTarget.position.z);
+				//rigidBody.transform.LookAt(lookAtVector);
+				Vector3 desiredDir = followTarget.transform.position - transform.position;
+				desiredDir.y = transform.position.y;
+				desiredDir.Normalize();
+
+				Quaternion lookAtQuat = Quaternion.LookRotation(desiredDir, Vector3.up);
+				Quaternion rotation = Quaternion.RotateTowards(transform.rotation, lookAtQuat, rotationVelocity);
+				transform.rotation = rotation;
 
 				rigidBody.AddRelativeForce(Vector3.forward * movementForce * Time.fixedDeltaTime, ForceMode.Force);
 
