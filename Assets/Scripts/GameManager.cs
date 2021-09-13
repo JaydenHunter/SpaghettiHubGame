@@ -44,6 +44,11 @@ public class GameManager : MonoBehaviour
 				timer = 5;
 			}
 		}
+
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			money += 50;
+		}
 	}
 
 	public CatMoodHandler CatMoodManager { get => mood; }
