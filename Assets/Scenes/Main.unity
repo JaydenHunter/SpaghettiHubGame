@@ -307,7 +307,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Food
+  m_Text: $50 Food
 --- !u!222 &74362554
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1144,7 +1144,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ball
+  m_Text: '$50: Ball'
 --- !u!222 &418965789
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1158,6 +1158,31 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8612846420446858098, guid: 6edc5c631263ff84db287bb73aeca396, type: 3}
   m_PrefabInstance: {fileID: 8883231511281765205}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &431888935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431888934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc9211cbd850e524d80f201f64e6037a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTimeOnActive: 60
+--- !u!114 &431888936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431888934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb694068eb406848b9c8640a4532c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &451003646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,6 +1354,7 @@ GameObject:
   - component: {fileID: 485576187}
   - component: {fileID: 485576186}
   - component: {fileID: 485576189}
+  - component: {fileID: 485576190}
   m_Layer: 5
   m_Name: B_Food
   m_TagString: Untagged
@@ -1411,6 +1437,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 485576190}
+        m_TargetAssemblyTypeName: SaveOnEvent, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &485576187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1462,7 +1500,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 431888934}
+  cost: 50
   resetPosition: 1
+--- !u!114 &485576190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485576184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb694068eb406848b9c8640a4532c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &626155229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,7 +1819,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 1032643880}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 37.40757
+    FieldOfView: 31.74871
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -2688,7 +2739,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 41.7, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 35.444763
+  m_FocalLength: 42.198006
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -2697,7 +2748,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 37.40757
+  field of view: 31.74871
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2901,6 +2952,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5830120702187037592, guid: a979598c8a187fc47adc534b92b7db1e, type: 3}
   m_PrefabInstance: {fileID: 5830120703027461479}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1092364330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092364329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc9211cbd850e524d80f201f64e6037a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTimeOnActive: 60
 --- !u!1 &1194970393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3136,6 +3200,7 @@ GameObject:
   - component: {fileID: 1218085530}
   - component: {fileID: 1218085529}
   - component: {fileID: 1218085532}
+  - component: {fileID: 1218085533}
   m_Layer: 5
   m_Name: B_Ball
   m_TagString: Untagged
@@ -3218,6 +3283,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1218085533}
+        m_TargetAssemblyTypeName: SaveOnEvent, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1218085530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3269,7 +3346,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 1092364329}
+  cost: 50
   resetPosition: 1
+--- !u!114 &1218085533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218085527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb694068eb406848b9c8640a4532c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1234435143
 GameObject:
   m_ObjectHideFlags: 0
