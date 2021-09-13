@@ -49,5 +49,9 @@ namespace Tween_Library.Scripts.Effects
          
             
         }
+        //public void ChangeEffectUi(Sprite rectTransform)
+        //{
+        //    RectTransform = rectTransform;
+        //}
     }
 }

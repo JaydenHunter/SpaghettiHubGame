@@ -15,7 +15,7 @@ public class JoyController : MonoBehaviour
     public bool touchStart = false;
     public float minRangeDetect;
     private Vector3 mousePosA;
-    bool hasSelection;
+    public bool hasSelection;
     public bool clickRelease;
     public event EventHandler DragUp;
     public event EventHandler DragDown;
@@ -33,7 +33,7 @@ public class JoyController : MonoBehaviour
     public Vector2 pointA;
     public Vector2 pointB;
     public int delayTimer;
-    public int hitTimer;
+    public float hitTimer;
 
 
     void Start()
@@ -100,6 +100,13 @@ public class JoyController : MonoBehaviour
                     joyDir = JoyDirection.RIGHT;
                     joyController();
                 }
+                 if (Mathf.Abs(mouseDragPos.y) < minRangeDetect && Mathf.Abs(mouseDragPos.x) < minRangeDetect)
+                {
+                    joyDir = JoyDirection.NONE;
+                    hasSelection = false;
+                }
+                
+
             }
         }
 
@@ -109,10 +116,11 @@ public class JoyController : MonoBehaviour
             mousePosA = Vector3.zero;
             clickRelease = true;
             joyController();
+            //hasSelection = false;
 
             //mOVEoBJ();
         }
-        
+
 
     }
     void joyController()
@@ -122,13 +130,18 @@ public class JoyController : MonoBehaviour
             case JoyDirection.UP:
                 if (!clickRelease)
                 {
-                    //Debug.Log("up");
+                    Debug.Log("up");
                     FunctionTimer.Create(() => DragUp?.Invoke(this, EventArgs.Empty), delayTimer);
                     hasSelection = true;
                     FunctionTimer.Create(() => ResetTimer(), hitTimer);
                 }
                 else
-                    FunctionTimer.Create(() => DragUpRelease?.Invoke(this, EventArgs.Empty), delayTimer);
+                {
+                    Debug.Log("up release");
+                     DragUpRelease?.Invoke(this, EventArgs.Empty);
+                    clickRelease = false;
+
+                }
 
                 break;
 
@@ -141,7 +154,11 @@ public class JoyController : MonoBehaviour
                     FunctionTimer.Create(() => ResetTimer(), hitTimer);
                 }
                 else
+                {
                     FunctionTimer.Create(() => DragDownRelease?.Invoke(this, EventArgs.Empty), delayTimer);
+                    clickRelease = false;
+
+                }
 
                 break;
 
@@ -150,11 +167,17 @@ public class JoyController : MonoBehaviour
                 {
                     FunctionTimer.Create(() => DragRight?.Invoke(this, EventArgs.Empty), delayTimer);
                     hasSelection = true;
-                    Debug.Log("right");
+                    // Debug.Log("right");
                     FunctionTimer.Create(() => ResetTimer(), hitTimer);
+                    Debug.Log("right");
                 }
                 else
+                {
+                    Debug.Log("up release");
                     FunctionTimer.Create(() => DragRightRelease?.Invoke(this, EventArgs.Empty), delayTimer);
+                    clickRelease = false;
+                    
+                }
 
                 break;
             case JoyDirection.LEFT:
@@ -166,7 +189,11 @@ public class JoyController : MonoBehaviour
                     FunctionTimer.Create(() => ResetTimer(), hitTimer);
                 }
                 else
+                {
                     FunctionTimer.Create(() => DragLeftRelease?.Invoke(this, EventArgs.Empty), delayTimer);
+                    clickRelease = false;
+
+                }
 
                 break;
             case JoyDirection.NONE:
