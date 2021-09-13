@@ -33,12 +33,9 @@ public class CatMovementHandler : MonoBehaviour
 		hitTimer = hitCooldown;
 		manager = GetComponent<CatManager>();
 		rigidBody = GetComponent<Rigidbody>();
-	}
-
-	private void Start()
-	{
 		followTarget = GameObject.Find("PlayBall").transform;
 	}
+
 
 	public void MoveTowardsTargetWithRotation(bool hit = false)
 	{
