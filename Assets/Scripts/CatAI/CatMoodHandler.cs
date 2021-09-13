@@ -1,4 +1,5 @@
 ﻿//Written by Jayden Hunter
+using TMPro;
 using UnityEngine;
 
 public enum MoodStatus
@@ -13,6 +14,10 @@ public enum MoodStatus
 
 public class CatMoodHandler : MonoBehaviour
 {
+	public GameObject ball;
+	public GameObject foodBowl;
+	public TextMeshProUGUI moodTMPro;
+
 	private CatManager manager;
 
 	[SerializeField] private MoodStatus currentMood = MoodStatus.Moderate;
@@ -43,9 +48,14 @@ public class CatMoodHandler : MonoBehaviour
 		manager = GetComponent<CatManager>();
 	}
 
+	private void UpdateMoodText()
+	{
+		moodTMPro.text = $"Mood: {currentMood}";
+	}
 
 	public void HandleMood()
 	{
+		
 		boredom += Utils.ModifyFloatWithLimit(boredomRatePerSecond * Time.deltaTime, maxBoredom);
 		hunger += Utils.ModifyFloatWithLimit(hungerRatePerSecond * Time.deltaTime, maxHunger);
 		loneliness += Utils.ModifyFloatWithLimit(lonelinessRatePerSecond * Time.deltaTime, maxLoneliness);
@@ -75,11 +85,13 @@ public class CatMoodHandler : MonoBehaviour
 		{
 			currentMood = MoodStatus.Moderate;
 		}
+
+		UpdateMoodText();
 	}
 
 	public bool CheckPriorityChange(ECatState currentState)
 	{
-		if (currentState == ECatState.PlayBall)
+		if (currentState == ECatState.PlayBall && ball.activeInHierarchy)
 		{
 			if (currentMood == MoodStatus.Hungry || currentMood == MoodStatus.Tired )
 				return true;
@@ -87,7 +99,7 @@ public class CatMoodHandler : MonoBehaviour
 				return true;
 		}
 
-		else if (currentState == ECatState.Eat)
+		else if (currentState == ECatState.Eat && foodBowl.activeInHierarchy)
 		{
 			if (hunger <= 10)
 				return true;
