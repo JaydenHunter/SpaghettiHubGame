@@ -8,23 +8,33 @@ using UnityEditor;
 public class JoyController : MonoBehaviour
 {
     //public Canvas can;
+    public enum JoyDirection { UP, DOWN, LEFT, RIGHT, NONE };
+    private JoyDirection joyDir = JoyDirection.NONE;
     public Image circleImg;
     public Image outerCircleImg;
     public bool touchStart = false;
     public float minRangeDetect;
     private Vector3 mousePosA;
+    public bool hasSelection;
+    public bool clickRelease;
+    public event EventHandler DragUp;
+    public event EventHandler DragDown;
+    public event EventHandler DragLeft;
+    public event EventHandler DragRight;
 
-    //public float speed;
-    //public Vector2 deltaAxis = Vector2.zero;
+    public event EventHandler DragUpRelease;
+    public event EventHandler DragDownRelease;
+    public event EventHandler DragLeftRelease;
+    public event EventHandler DragRightRelease;
+    //public event EventHandler<DragUpEventArgs> DragUp;
+    //public class DragUpEventArgs : EventArgs {
+    //    int whatever;
+    //}
     public Vector2 pointA;
     public Vector2 pointB;
+    public int delayTimer;
+    public float hitTimer;
 
-
-    //public Transform B;
-    public event EventHandler UpdateTrailEvent;
-
-    //Vector2 StartPoint;
-    //public bool isHeld = false;
 
     void Start()
     {
@@ -37,13 +47,6 @@ public class JoyController : MonoBehaviour
         UnityEditor.Handles.color = Color.green;
         //joy sweet spot lines
         UnityEditor.Handles.DrawWireDisc(mousePosA, Vector3.forward, minRangeDetect);
-        //draw where mouse is
-        //Vector3 mousePosition = Event.current.mousePosition;
-        //mousePosition.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePosition.y;
-        //mousePosition = SceneView.currentDrawingSceneView.camera.ScreenToWorldPoint(mousePosition);
-        //mousePosition.y = -mousePosition.y;
-
-        //UnityEditor.Handles.DrawLine(mousePosA, MouseCursor.);
 
     }
     void Update()
@@ -51,17 +54,10 @@ public class JoyController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-
             //get vector direction from mouse to current mouse pos
             mousePosA = Input.mousePosition;
-
-
-            //pointA = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            //outerCircleImg
-            //transform.position = Input.mousePosition;
-
+            hasSelection = false;
         }
-
 
         if (Input.GetMouseButton(0))
         {
@@ -71,103 +67,146 @@ public class JoyController : MonoBehaviour
             Vector3 mouseDragPos = Input.mousePosition - mousePosA;
             //find current distance between
             //find float distance and compare it to min range
-
-            //Debug.Log("x =" + mouseDragPos.x + ", y =" + mouseDragPos.y);
-            //up
-            if (mouseDragPos.y > minRangeDetect && Mathf.Abs(mouseDragPos.x) < minRangeDetect)
+            clickRelease = false;
+            if (!hasSelection)
             {
-                Debug.Log("up");
+
+                if (mouseDragPos.y > minRangeDetect && Mathf.Abs(mouseDragPos.x) < minRangeDetect)
+                {
+
+                    joyDir = JoyDirection.UP;
+                    joyController();
+
+                    // FunctionTimer.Create(() => MyFunction, 4;
+                }
+                //down
+                if (mouseDragPos.y < -minRangeDetect && Mathf.Abs(mouseDragPos.x) < minRangeDetect)
+                {
+
+                    joyDir = JoyDirection.DOWN;
+                    joyController();
+                }
+                //left
+                if (Mathf.Abs(mouseDragPos.y) < minRangeDetect && mouseDragPos.x < -minRangeDetect)
+                {
+
+                    joyDir = JoyDirection.LEFT;
+                    joyController();
+                }
+                //right
+                if (Mathf.Abs(mouseDragPos.y) < minRangeDetect && mouseDragPos.x > minRangeDetect)
+                {
+
+                    joyDir = JoyDirection.RIGHT;
+                    joyController();
+                }
+                 if (Mathf.Abs(mouseDragPos.y) < minRangeDetect && Mathf.Abs(mouseDragPos.x) < minRangeDetect)
+                {
+                    joyDir = JoyDirection.NONE;
+                    hasSelection = false;
+                }
+                
+
             }
-            //down
-            if (mouseDragPos.y < -minRangeDetect && Mathf.Abs(mouseDragPos.x) < minRangeDetect)
-            {
-                Debug.Log("down");
-            }
-            //left
-            if (Mathf.Abs(mouseDragPos.y) < minRangeDetect && mouseDragPos.x < -minRangeDetect)
-            {
-                Debug.Log("left");
-            }
-            //right
-            if (Mathf.Abs(mouseDragPos.y) < minRangeDetect && mouseDragPos.x > minRangeDetect)
-            {
-                Debug.Log("right");
-            }
-
-            //mouseDragPos = mousePosA - ;
-
-            //get mouse pos when clicked and calulate the direction 
-            //use that direction to 
-
-            //if (isHeld == true)
-            //{
-
-            //	UpdateTrailEvent?.Invoke(this, EventArgs.Empty);
-
-
-
-
-            //	//get mouse pos 
-            //	// Get Mouse Pos
-
-            //	Vector2 mousePos = Input.mousePosition;
-            //	//mousePos.x -= Screen.width / 2;
-            //	//mousePos.y -= Screen.height / 2;
-            //	//Vector2 CurrentPoint = GetCanvasMousePos();
-            //	// Clamp Inner Circle to Outer Circle
-
-            //	float maxDst = outerCircleImg.rectTransform.rect.width * 0.5f;
-            //	float x = Mathf.Clamp(mousePos.x, StartPoint.x - maxDst, StartPoint.x + maxDst);
-            //	float y = Mathf.Clamp(mousePos.y, StartPoint.y - maxDst, StartPoint.y + maxDst);
-            //	Vector2 ClampedCurrent = new Vector2(x, y);
-            //	// Calculate delta
-            //	Vector2 d = (ClampedCurrent - StartPoint);
-
-            //	deltaAxis = d / maxDst;
-
-            //	Debug.Log("D: " + d + ", norm: " + deltaAxis);
-            //	// Set Inner Circle Position
-
-            //	circleImg.transform.position = new Vector3(x, y, circleImg.transform.position.z);
-
-            //}
         }
+
+
         if (Input.GetMouseButtonUp(0))
         {
             mousePosA = Vector3.zero;
+            clickRelease = true;
+            joyController();
+            //hasSelection = false;
+
             //mOVEoBJ();
         }
 
-        //private Vector2 GetCanvasMousePos()
-        //{
-        //	Vector2 movePos;
-        //	RectTransformUtility.ScreenPointToLocalPointInRectangle(
-        //		can.transform as RectTransform, Input.mousePosition, can.worldCamera, out movePos);
-        //	movePos = can.transform.TransformPoint(movePos);
-        //	return movePos;
-        //}
-        //public void mOVEoBJ()
-        //{
 
-        //	B.Translate(new Vector3(deltaAxis.x, 0f, deltaAxis.y) * speed * Time.deltaTime);
+    }
+    void joyController()
+    {
+        switch (joyDir)
+        {
+            case JoyDirection.UP:
+                if (!clickRelease)
+                {
+                    Debug.Log("up");
+                    FunctionTimer.Create(() => DragUp?.Invoke(this, EventArgs.Empty), delayTimer);
+                    hasSelection = true;
+                    FunctionTimer.Create(() => ResetTimer(), hitTimer);
+                }
+                else
+                {
+                    Debug.Log("up release");
+                     DragUpRelease?.Invoke(this, EventArgs.Empty);
+                    clickRelease = false;
 
-        //}
-        //public void click()
-        //{
-        //	isHeld = true;
+                }
 
-        //}
-        //public void clickRelease()
-        //{
-        //	isHeld = false;
-        //	deltaAxis = Vector2.zero;
-        //	//release button
-        //	circleImg.transform.position = outerCircleImg.transform.position;
-        //	isHeld = false;
+                break;
 
-        //}
+            case JoyDirection.DOWN:
+                if (!clickRelease)
+                {
+                    FunctionTimer.Create(() => DragDown?.Invoke(this, EventArgs.Empty), delayTimer);
+                    hasSelection = true;
+                    Debug.Log("down");
+                    FunctionTimer.Create(() => ResetTimer(), hitTimer);
+                }
+                else
+                {
+                    FunctionTimer.Create(() => DragDownRelease?.Invoke(this, EventArgs.Empty), delayTimer);
+                    clickRelease = false;
+
+                }
+
+                break;
+
+            case JoyDirection.RIGHT:
+                if (!clickRelease)
+                {
+                    FunctionTimer.Create(() => DragRight?.Invoke(this, EventArgs.Empty), delayTimer);
+                    hasSelection = true;
+                    // Debug.Log("right");
+                    FunctionTimer.Create(() => ResetTimer(), hitTimer);
+                    Debug.Log("right");
+                }
+                else
+                {
+                    Debug.Log("up release");
+                    FunctionTimer.Create(() => DragRightRelease?.Invoke(this, EventArgs.Empty), delayTimer);
+                    clickRelease = false;
+                    
+                }
+
+                break;
+            case JoyDirection.LEFT:
+                if (!clickRelease)
+                {
+                    FunctionTimer.Create(() => DragLeft?.Invoke(this, EventArgs.Empty), delayTimer);
+                    hasSelection = true;
+                    Debug.Log("left");
+                    FunctionTimer.Create(() => ResetTimer(), hitTimer);
+                }
+                else
+                {
+                    FunctionTimer.Create(() => DragLeftRelease?.Invoke(this, EventArgs.Empty), delayTimer);
+                    clickRelease = false;
+
+                }
+
+                break;
+            case JoyDirection.NONE:
 
 
+                break;
+
+
+        }
+    }
+    void ResetTimer()
+    {
+        hasSelection = false;
     }
 }
 

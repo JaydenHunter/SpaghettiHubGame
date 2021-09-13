@@ -9,6 +9,9 @@ public class CatStatePlayBall : CatState
 
 	public override void OnEnter()
 	{
+		if (!CheckBallExists())
+			return;
+
 		manager.Animation.PlayAnimation(CatAnimation.Walk);
 		manager.Movement.FollowTarget = ball;
 		manager.Movement.MaxSpeed = maxSpeed;
@@ -19,8 +22,21 @@ public class CatStatePlayBall : CatState
 		
 	}
 
+	private bool CheckBallExists()
+	{
+		if (!ball.gameObject.activeInHierarchy)
+		{
+			stateMachine.ChangeState(ECatState.Idle);
+			return false;
+		}
+		return true;
+	}
+
 	public override void OnFixedUpdate()
 	{
+		if (!CheckBallExists())
+			return;
+
 		manager.Movement.MoveTowardsTargetWithRotation(true);
 
 		if (manager.Mood.CheckPriorityChange(ECatState.PlayBall))

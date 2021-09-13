@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CardPlayer : MonoBehaviour
 {
+    public GameManager gameManager;
     //-- this script is for both for player and dealer
     // Start is called before the first frame update
     //Get other scripts
@@ -14,7 +15,7 @@ public class CardPlayer : MonoBehaviour
     public int handValue = 0;
 
     // Betting money
-    private int money = 1000;
+    private int money;
 
     //Array of card objects on table 
     public GameObject[] hand;
@@ -22,13 +23,17 @@ public class CardPlayer : MonoBehaviour
     public int cardIndex = 0;
     //tracking aces for 1 to 11 conversions
     List<CardScript> aceList = new List<CardScript>();
-
-   public void StartHand()
+    private void Start()
     {
+        money = gameManager.money;
+    }
+    public void StartHand()
+    {
+       
         GetCard();
         GetCard();
     }
-    //add a hand to the player/dealer's hand
+    //add a hand to the player/dealer's handw
     public int GetCard()
     {
         // Get a card, use deal card to assign sprite and value to card on table
@@ -71,7 +76,7 @@ public class CardPlayer : MonoBehaviour
         //aceList.Add(hand[cardIndex].GetComponent<CardScript>());
     }
     //Get money
-    public int GetAdjustMoney { get => money; set => this.money = value; }
+    public int GetAdjustMoney { get => gameManager.money; set => gameManager.money = value; }
     public void ResetHand()
     {
         for (int i = 0; i < hand.Length; i++)

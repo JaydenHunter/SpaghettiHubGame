@@ -56,7 +56,10 @@ public class CatStateMachine : MonoBehaviour
 		if (currentState)
 			currentState.OnFixedUpdate();
 	}
-
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="desiredState"></param>
 	public void ChangeState(ECatState desiredState)
 	{
 		if(currentState)

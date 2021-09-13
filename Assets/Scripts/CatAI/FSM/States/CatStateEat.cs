@@ -11,6 +11,8 @@ public class CatStateEat : CatState
 	private float maxSpeed = 1;
 	public override void OnEnter()
 	{
+		if (!CheckTransformExists())
+			return;
 		manager.Animation.PlayAnimation(CatAnimation.Eat);
 		manager.Movement.FollowTarget = foodBowl;
 		manager.Movement.MaxSpeed = maxSpeed;
@@ -24,8 +26,21 @@ public class CatStateEat : CatState
 			stateMachine.ChangeState(ECatState.Idle);
 	}
 
+	private bool CheckTransformExists()
+	{
+		if (!foodBowl.gameObject.activeInHierarchy)
+		{
+			stateMachine.ChangeState(ECatState.Idle);
+			return false;
+		}
+		return true;
+	}
+
 	public override void OnFixedUpdate()
 	{
+		if (!CheckTransformExists())
+			return;
+
 		manager.Movement.MaxSpeed = maxSpeed;
 		if (Vector3.Distance(transform.position, foodBowl.position) > minDistToEat)
 		{
