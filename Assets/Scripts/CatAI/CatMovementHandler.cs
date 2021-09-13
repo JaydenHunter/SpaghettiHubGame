@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CatMovementHandler : MonoBehaviour
 {
+	public bool mainScene = false;
 	private Vector3 goToPosition = Vector2.zero;
 	[SerializeField] private Transform followTarget = null;
 	private float wanderRadius = 10f;
@@ -30,10 +31,14 @@ public class CatMovementHandler : MonoBehaviour
 
 	private void Awake()
 	{
+
 		hitTimer = hitCooldown;
 		manager = GetComponent<CatManager>();
 		rigidBody = GetComponent<Rigidbody>();
-		followTarget = GameObject.Find("PlayBall").transform;
+		if (mainScene)
+		{
+			followTarget = GameObject.Find("PlayBall").transform;
+		}
 	}
 
 

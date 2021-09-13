@@ -13,7 +13,6 @@ namespace Tween_Library.Scripts
             Owner = owner;
         }
 
-
         public EffectBuilder AddEffect(IUiEffect effect)
         {
             _effects.Add(effect);
@@ -30,5 +29,6 @@ namespace Tween_Library.Scripts
             }
 
         }
+       
     }
 }
