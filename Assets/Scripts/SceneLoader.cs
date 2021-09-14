@@ -32,6 +32,12 @@ public class SceneLoader : MonoBehaviour
 		StartCoroutine(LoadScene());
 	}
 
+	public void LoadMainMenu()
+	{
+		saveManager.Save();
+		sceneNameToLoad = "Main Menu";
+		StartCoroutine(LoadScene());
+	}
 	IEnumerator LoadScene()
 	{
 		yield return new WaitForSeconds(0.01f);
