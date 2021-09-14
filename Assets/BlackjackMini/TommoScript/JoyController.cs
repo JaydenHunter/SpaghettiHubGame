@@ -83,7 +83,7 @@ public class JoyController : MonoBehaviour
                     joyDir = JoyDirection.UP;
                     joyController();
                     hasSelection = true;
-                    FunctionTimer.Create(() =>ResetTimer(), 0.2f);
+                    FunctionTimer.Create(() =>ResetTimer(), 0.1f);
                 }else
                 //down
                 if (mouseDragPos.y < -minRangeDetect && Mathf.Abs(mouseDragPos.x) < minRangeDetect)
@@ -91,7 +91,7 @@ public class JoyController : MonoBehaviour
                     joyDir = JoyDirection.DOWN;
                     joyController();
                     hasSelection = true;
-                    FunctionTimer.Create(() => ResetTimer(), 0.2f);
+                    FunctionTimer.Create(() => ResetTimer(), 0.1f);
                 }
                 else
                 //left
@@ -101,7 +101,7 @@ public class JoyController : MonoBehaviour
                     joyDir = JoyDirection.LEFT;
                     joyController();
                     hasSelection = true;
-                    FunctionTimer.Create(() => ResetTimer(), 0.2f);
+                    FunctionTimer.Create(() => ResetTimer(), 0.1f);
                 }
                 //right
                 else if (Mathf.Abs(mouseDragPos.y) < minRangeDetect && mouseDragPos.x > minRangeDetect)
@@ -110,7 +110,7 @@ public class JoyController : MonoBehaviour
                     joyDir = JoyDirection.RIGHT;
                     joyController();
                     hasSelection = true;
-                    FunctionTimer.Create(() => ResetTimer(), 0.2f);
+                    FunctionTimer.Create(() => ResetTimer(), 0.1f);
                 }
                 
                  else if (Mathf.Abs(mouseDragPos.y) < minRangeDetect && Mathf.Abs(mouseDragPos.x) < minRangeDetect)
