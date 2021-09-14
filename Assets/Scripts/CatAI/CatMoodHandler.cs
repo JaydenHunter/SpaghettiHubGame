@@ -139,7 +139,8 @@ public class CatMoodHandler : MonoBehaviour
 			value = tiredness;
 			desiredState = ECatState.Sleep;
 		}
-		Debug.Log($"Desired State: {desiredState.ToString()} | Value: {value}");
+		//Debug.Log($"Desired State: {desiredState.ToString()} | Value: {value}");
+		//Debug.Log($"Desired State: {desiredState.ToString()} | Value: {value}");
 		return desiredState;
 	}
 
