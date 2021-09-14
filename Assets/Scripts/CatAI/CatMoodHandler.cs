@@ -14,6 +14,7 @@ public enum MoodStatus
 
 public class CatMoodHandler : MonoBehaviour
 {
+	public bool mainScene = false;
 	public GameObject ball;
 	public GameObject foodBowl;
 	public TextMeshProUGUI moodTMPro;
@@ -50,12 +51,13 @@ public class CatMoodHandler : MonoBehaviour
 
 	private void UpdateMoodText()
 	{
-		moodTMPro.text = $"Mood: {currentMood}";
+		if (mainScene)
+			moodTMPro.text = $"Mood: {currentMood}";
 	}
 
 	public void HandleMood()
 	{
-		
+
 		boredom += Utils.ModifyFloatWithLimit(boredomRatePerSecond * Time.deltaTime, maxBoredom);
 		hunger += Utils.ModifyFloatWithLimit(hungerRatePerSecond * Time.deltaTime, maxHunger);
 		loneliness += Utils.ModifyFloatWithLimit(lonelinessRatePerSecond * Time.deltaTime, maxLoneliness);
@@ -77,7 +79,7 @@ public class CatMoodHandler : MonoBehaviour
 		{
 			currentMood = MoodStatus.Bored;
 		}
-		else if (hunger < happyThreshold && tiredness < happyThreshold  && loneliness < happyThreshold && boredom < happyThreshold)
+		else if (hunger < happyThreshold && tiredness < happyThreshold && loneliness < happyThreshold && boredom < happyThreshold)
 		{
 			currentMood = MoodStatus.Happy;
 		}
@@ -93,7 +95,7 @@ public class CatMoodHandler : MonoBehaviour
 	{
 		if (currentState == ECatState.PlayBall && ball.activeInHierarchy)
 		{
-			if (currentMood == MoodStatus.Hungry || currentMood == MoodStatus.Tired )
+			if (currentMood == MoodStatus.Hungry || currentMood == MoodStatus.Tired)
 				return true;
 			else if (boredom <= 10)
 				return true;
@@ -137,7 +139,8 @@ public class CatMoodHandler : MonoBehaviour
 			value = tiredness;
 			desiredState = ECatState.Sleep;
 		}
-		Debug.Log($"Desired State: {desiredState.ToString()} | Value: {value}");
+		//Debug.Log($"Desired State: {desiredState.ToString()} | Value: {value}");
+		//Debug.Log($"Desired State: {desiredState.ToString()} | Value: {value}");
 		return desiredState;
 	}
 

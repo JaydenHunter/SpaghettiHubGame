@@ -9,15 +9,19 @@ public class CatSoundManager : MonoBehaviour
 	private AudioSource loopingSound = null;
 	private AudioSource singlePlaySound = null;
 	[SerializeField] private List<AudioClipData> audioClips = null;
+	public bool mainScene = false;
 
 	private float singleDefaultPitch = 1;
 
 	private void Awake()
 	{
-		loopingSound = GameObject.Find("CatLooping").GetComponent<AudioSource>();
-		singlePlaySound = GameObject.Find("CatSingleSound").GetComponent<AudioSource>();
+		if (mainScene)
+		{
+			loopingSound = GameObject.Find("CatLooping").GetComponent<AudioSource>();
+			singlePlaySound = GameObject.Find("CatSingleSound").GetComponent<AudioSource>();
 
-		singleDefaultPitch = singlePlaySound.pitch;
+			singleDefaultPitch = singlePlaySound.pitch;
+		}
 	}
 
 	public void PlayLooping(string clipName)
