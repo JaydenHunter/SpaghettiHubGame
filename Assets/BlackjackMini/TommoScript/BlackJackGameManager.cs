@@ -31,6 +31,9 @@ public class BlackJackGameManager : MonoBehaviour
     public TMP_Text betsText;
     public TMP_Text cashText;
     public TMP_Text mainText;
+    public TMP_Text instructions;
+     
+
     //public TMP_Text joyText;
 
     //public int counter;
@@ -64,6 +67,7 @@ public class BlackJackGameManager : MonoBehaviour
         //controller
         cashText.text = "Bank : $" + playerScript.GetAdjustMoney.ToString();
         controller = GetComponent<JoyController>();
+
         BlackJackStateManager();
 
         //uiEffectedImage = dealBtn.GetComponent<Image>();
@@ -89,14 +93,15 @@ public class BlackJackGameManager : MonoBehaviour
                 //disable all othe
                 controller.DragUp += BetClicked;
                 controller.DragDown += BetMinus;
-
+                //controller.DragDown += BetMinus;
+                betsText.text = "$0 : Bet";
                 pot = 0;
-                cashText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-60, -20f);
-                betBtn.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(47f, -195);
+                cashText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-306, -20f);
+                //betBtn.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(47f, -195);
                 betsText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-106.3f, -228.4f);
                 playerScript.ResetHand();
                 dealerScript.ResetHand();
-                betBtn.gameObject.SetActive(true);
+                //betBtn.gameObject.SetActive(true);
                 betsText.gameObject.SetActive(true);
                 dealBtn.gameObject.SetActive(false);
                 hitBtn.gameObject.SetActive(false);
@@ -105,30 +110,30 @@ public class BlackJackGameManager : MonoBehaviour
                 dealerScoreText.gameObject.SetActive(false);
                 cashText.gameObject.SetActive(true);
                 mainText.gameObject.SetActive(false);
-
+                instructions.text = "BetDrag up/down : +Bet/-Bet" + "\n" + "Drag right &release : Deal  ";
 
 
 
                 break;
             case _eBlackJackStates.DEALING:
-
+                //Debug.Log("pooop");
                 controller.DragUp -= BetClicked;
                 controller.DragDown -= BetMinus;
                 controller.DragRightRelease -= DealClicked;
                 controller.DragRight -= DealSelected;
-
-                controller.DragUpRelease += HitClicked;
-                controller.DragDownRelease += StandClicked;
-                controller.DragUp += HitSelected;
-                controller.DragDown += StandSelected;
+                instructions.text = "DragLeft Release : HIT"+ "\n"+ " DragRight Release : STAND";
+                controller.DragLeftRelease += HitClicked;
+                controller.DragRightRelease += StandClicked;
+                controller.DragLeft += HitSelected;
+                controller.DragRight += StandSelected;
                 //controller.DragRightRelease -= DealClicked;
                 //controller.DragRight -= DealSelected;
                 hitBtn.gameObject.SetActive(false);
                 standBtn.gameObject.SetActive(false);
 
 
-                cashText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-271.7f, -180f);
-                betBtn.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(48.6f, -27);
+                cashText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-269f, 128f);
+                //betBtn.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(48.6f, -27);
                 betsText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-571f, -168f);
                 scoreText.gameObject.SetActive(true);
 
@@ -141,14 +146,15 @@ public class BlackJackGameManager : MonoBehaviour
 
                 break;
             case _eBlackJackStates.END:
-                controller.DragUpRelease -= HitClicked;
-                controller.DragDownRelease -= StandClicked;
-                controller.DragUp -= HitSelected;
-                controller.DragDown -= StandSelected;
+               
+                controller.DragLeftRelease -= HitClicked;
+                controller.DragRightRelease -= StandClicked;
+                controller.DragLeft -= HitSelected;
+                controller.DragRight -= StandSelected;
+                mainText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                mainText.gameObject.GetComponent<BasicUIEffect>().uiEffect.ExecuteAllEffects();
 
-
-
-                betBtn.gameObject.SetActive(false);
+                //betBtn.gameObject.SetActive(false);
                 betsText.gameObject.SetActive(true);
                 dealBtn.gameObject.SetActive(false);
                 hitBtn.gameObject.SetActive(false);
@@ -157,7 +163,7 @@ public class BlackJackGameManager : MonoBehaviour
                 dealerScoreText.gameObject.SetActive(true);
                 cashText.gameObject.SetActive(true);
                 mainText.gameObject.SetActive(true);
-
+               
 
                 break;
 
@@ -258,7 +264,9 @@ public class BlackJackGameManager : MonoBehaviour
         standClicks++;
         if (standClicks > 1) RoundOver();
         {
+            
             HitDealer();
+
             standBtn.GetComponentInChildren<TMP_Text>().text = "Call";
         }
 
@@ -282,7 +290,7 @@ public class BlackJackGameManager : MonoBehaviour
     //check for winner 
     void RoundOver()
     {
-
+        instructions.text = "Won " + pot;
         // Booleans (true/false) for bust and blackjack/21
         bool playerBust = playerScript.handValue > 21;
         bool dealerBust = dealerScript.handValue > 21;
@@ -297,26 +305,36 @@ public class BlackJackGameManager : MonoBehaviour
         {
             mainText.text = "All Bust: bets returned";
             playerScript.GetAdjustMoney = (pot / 2);
-
+            instructions.text = "Draw ";
 
         }
         // if player busts, dealer didnt, or if dealer has more points, deal wins 
         else if (playerBust || (!dealerBust && dealerScript.handValue > playerScript.handValue))
         {
+            for (int i = 0; i < dealerScript.cardIndex; i++)
+            {
+                dealerScript.hand[i].GetComponent<BasicUIEffect>().uiEffect.ExecuteAllEffects();
 
-            mainText.text = "Dealer Wins!";
+            }
+            instructions.text = "lost -" + (pot/2);
+            mainText.text = "Dealer Wins!, " + dealerScript.handValue;
             //playerScript.GetAdjustMoney -= pot;
         }
         else if (dealerBust || playerScript.handValue > dealerScript.handValue)
         {
+            for (int i = 0; i < playerScript.cardIndex; i++)
+            {
+                playerScript.hand[i].GetComponent<BasicUIEffect>().uiEffect.ExecuteAllEffects();
+            }
 
             mainText.text = "You win!";
+            instructions.text = "Won " + pot;
             playerScript.GetAdjustMoney += pot;
         }
         else if (playerScript.handValue == dealerScript.handValue)
         {
-
-            mainText.text = "Push: Bets returned";
+            instructions.text = "Draw";
+            mainText.text = "Draw"+ dealerScript.handValue;
             playerScript.GetAdjustMoney += (pot / 2);
         }
         else
@@ -339,13 +357,13 @@ public class BlackJackGameManager : MonoBehaviour
             _currentState = _eBlackJackStates.END;
             BlackJackStateManager();
             _currentState = _eBlackJackStates.BETTING;
-            FunctionTimer.Create(() => BlackJackStateManager(), 2f);
+            FunctionTimer.Create(() => BlackJackStateManager(), 6f);
         }
 
     }
 
     //add money to pot if bet clicked
-    void BetClicked(object sender, EventArgs e)
+    void BetClicked(float distance)
     {
         
         //Debug.Log("up");
@@ -360,8 +378,12 @@ public class BlackJackGameManager : MonoBehaviour
         if (playerScript.GetAdjustMoney > 0)
         {
             Debug.Log("sdfgjsdlgjsdlgkjl");
-            playerScript.GetAdjustMoney -= 1;
-            pot += 2;
+            Debug.Log(distance);
+            int cash = (int)Mathf.Abs(distance / 100) ;
+           // cash = (cash > 1) ? cash : 1;
+            Debug.Log(cash);
+            playerScript.GetAdjustMoney -= cash; 
+            pot += cash*2;
             //betsText.text = "$ " + pot.ToString();
             //playerScript.GetAdjustMoney -= 20;
             cashText.text = "Bank : $" + playerScript.GetAdjustMoney.ToString();
@@ -369,7 +391,7 @@ public class BlackJackGameManager : MonoBehaviour
         }
 
     }
-    void BetMinus(object sender, EventArgs e)
+    void BetMinus(float distance)
     {
         if (pot < 0)
         {
