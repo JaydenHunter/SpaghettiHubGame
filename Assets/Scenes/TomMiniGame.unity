@@ -4166,8 +4166,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 64f07b6384a690b46896b8135f20feec, type: 3}
   audioVolume:
   - 0.05
-  - 2
-  - 2
+  - 0.25
+  - 0.25
   - 0.15
   dealBtn: {fileID: 322290607}
   hitBtn: {fileID: 595749490}
