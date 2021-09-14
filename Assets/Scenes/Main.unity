@@ -1958,7 +1958,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 1032643880}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 36.18824
+    FieldOfView: 39.42976
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -2714,7 +2714,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 41.7, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 36.726807
+  m_FocalLength: 33.487297
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -2723,7 +2723,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 36.18824
+  field of view: 39.429756
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
