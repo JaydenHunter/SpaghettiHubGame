@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿///Tomas Munro's Script
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -16,6 +17,13 @@ public class FunctionTimer
         
         }
     }
+    /// <summary>
+    /// create a timer that executes function once time is passed
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="timer"></param>
+    /// <param name="timerName"></param>
+    /// <returns></returns>
     public static FunctionTimer Create(Action action, float timer,string timerName = null) 
     {
         InitIfNeeded();
@@ -27,12 +35,20 @@ public class FunctionTimer
 
         return functionTimer;
     }
+    /// <summary>
+    /// removes timer 
+    /// </summary>
+    /// <param name="functionTimer"></param>
     private static void RemoveTimer(FunctionTimer functionTimer)
     {
         InitIfNeeded();
         activeTimerList.Remove(functionTimer);
     
     }
+    /// <summary>
+    /// Stops Timer
+    /// </summary>
+    /// <param name="timerName"></param>
     public static void StopTimer(String timerName)
     {
         for (int i = 0; i < activeTimerList.Count; i++) 
@@ -63,7 +79,13 @@ public class FunctionTimer
     private string timerName;
     private bool isDestroyed;
     private GameObject gameObject;
-                
+    /// <summary>
+    /// create function timer
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="timer"></param>
+    /// <param name="timerName"></param>
+    /// <param name="gameObject"></param>
     private FunctionTimer(Action action,float timer,string timerName, GameObject gameObject)
     {
         this.action = action;
@@ -88,7 +110,9 @@ public class FunctionTimer
 
         }
     }
-
+    /// <summary>
+    /// destroy this timer
+    /// </summary>
     private void DestroySelf() 
     {
         isDestroyed = true;

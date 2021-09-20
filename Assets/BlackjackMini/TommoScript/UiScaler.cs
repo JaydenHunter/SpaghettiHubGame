@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿///Tomas Munro's Script
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,9 @@ public class UiScaler : MonoBehaviour
         can = GetComponent<CanvasScaler>();
         SetInfo();
     }
+    /// <summary>
+    /// set info 
+    /// </summary>
     void SetInfo()
     {
         resoX = (float)Screen.currentResolution.width;

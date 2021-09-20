@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿///Tomas Munro's Script
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Tween_Library.Scripts;
@@ -13,6 +14,9 @@ public class BasicUIEffect : MonoBehaviour
     public float rotationMax;
     public int speedShake;
     // Start is called before the first frame update
+    /// <summary>
+    ///simple scale and rotate script can be added to any obj
+    /// </summary>
     void Start()
     {
         _wait = new WaitForSeconds(0.0f);

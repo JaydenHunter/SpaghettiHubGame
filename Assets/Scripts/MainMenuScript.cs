@@ -8,12 +8,12 @@ using UnityEngine.SceneManagement;
 public class MainMenuScript : MonoBehaviour
 {
 
-    public void GoToMainScene()
+    public void GoToMainScene(float joyDistance)
     {
         SceneManager.LoadScene("Main");
     }
 
-    public void QuitGame()
+    public void QuitGame(float joyDistance)
     {
         Application.Quit();
     }

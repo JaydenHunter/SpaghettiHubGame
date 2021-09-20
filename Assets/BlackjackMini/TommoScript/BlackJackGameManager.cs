@@ -1,4 +1,5 @@
-﻿using System;
+﻿///Tomas Munro's Script  
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,7 @@ public class BlackJackGameManager : MonoBehaviour
     // access the player and dealers hand
     public CardPlayer playerScript;
     public CardPlayer dealerScript;
-    // private JoyController controller;
+    
 
     //access the player and the dealer's script
     public TMP_Text scoreText;
@@ -36,20 +37,6 @@ public class BlackJackGameManager : MonoBehaviour
     public TMP_Text mainText;
     public TMP_Text instructions;
      
-
-    //public TMP_Text joyText;
-
-    //public int counter;
-   // public int iCountIter;
-    //private Image uiEffectedImage;
-
-    //private EffectBuilder _effect;
-    //effect Variables
-
-
-
-    //public TMP_Text standBtnText;
-    //bool canPlaceBets;
     // Card hiding dealers 2nd card
     public GameObject hideCard;
 
@@ -68,33 +55,25 @@ public class BlackJackGameManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         //adding OnClick Listeners to the buttons
-        //controller
-        //controller
-        //controller
         cashText.text = "Bank : $" + playerScript.GetAdjustMoney.ToString();
         controller = GetComponent<JoyController>();
 
         BlackJackStateManager();
 
-        //uiEffectedImage = dealBtn.GetComponent<Image>();
-
-
-        //
-        //controller.DragUp += 
-        //dealBtn.onClick.AddListener(() => DealClicked());
-        //hitBtn.onClick.AddListener(() => HitClicked());
-        ///standBtn.onClick.AddListener(() => StandClicked());
-        //betBtn.onClick.AddListener(() => BetClicked());
+    
 
 
     }
 
-
+    /// <summary>
+    /// Controls current state of game and dictates what events need to be subscribed and unsubscribe to the joy controller
+    /// also turns all the ui ect that needs to be active ect
+    /// </summary>
     void BlackJackStateManager()
     {
         switch (_currentState)
         {
-            //PLACE BETS
+            //PLACE BETS phase
             case _eBlackJackStates.BETTING:
                 //disable all othe
                 controller.DragUp += BetClicked;
@@ -119,7 +98,7 @@ public class BlackJackGameManager : MonoBehaviour
                 instructions.text = "BetDrag up/down : +Bet/-Bet" + "\n" + "Drag right &release : Deal  ";
 
 
-
+                //Dealing phase
                 break;
             case _eBlackJackStates.DEALING:
                 //Debug.Log("pooop");
@@ -132,14 +111,9 @@ public class BlackJackGameManager : MonoBehaviour
                 controller.DragRightRelease += StandClicked;
                 controller.DragLeft += HitSelected;
                 controller.DragRight += StandSelected;
-                //controller.DragRightRelease -= DealClicked;
-                //controller.DragRight -= DealSelected;
                 hitBtn.gameObject.SetActive(false);
                 standBtn.gameObject.SetActive(false);
-
-
                 cashText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-269f, 128f);
-                //betBtn.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(48.6f, -27);
                 betsText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-571f, -168f);
                 scoreText.gameObject.SetActive(true);
 
@@ -148,9 +122,11 @@ public class BlackJackGameManager : MonoBehaviour
                 mainText.gameObject.SetActive(true);
 
                 break;
+                //unused
             case _eBlackJackStates.MIDGAME:
 
                 break;
+                // end/results state 
             case _eBlackJackStates.END:
                
                 controller.DragLeftRelease -= HitClicked;
@@ -176,7 +152,12 @@ public class BlackJackGameManager : MonoBehaviour
 
         }
     }
-
+    /// <summary>
+    /// player is hovering over stand 
+    /// end player turn, dealers turn
+    /// </summary>
+    /// <param name="sender"> your event params</param>
+    /// <param name="e"></param>
     void StandSelected(object sender, EventArgs e)
     {
         audioSource.pitch = Random.Range(min, max);
@@ -186,6 +167,11 @@ public class BlackJackGameManager : MonoBehaviour
         //uiEffectedImage = standBtn.GetComponent<Image>();
         standBtn.GetComponent<BasicUIEffect>().uiEffect.ExecuteAllEffects();
     }
+    /// <summary>
+    /// player is hovering over the hit button 
+    /// </summary>
+    /// <param name="sender">your event params</param>
+    /// <param name="e">your event params</param>
     void HitSelected(object sender, EventArgs e)
     {
         audioSource.pitch = Random.Range(min, max);
@@ -195,6 +181,11 @@ public class BlackJackGameManager : MonoBehaviour
         //uiEffectedImage = standBtn.GetComponent<Image>();
         hitBtn.GetComponent<BasicUIEffect>().uiEffect.ExecuteAllEffects();
     }
+    /// <summary>
+    /// player is hovering over deal selected
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     void DealSelected(object sender, EventArgs e)
     {
         audioSource.pitch = Random.Range(min, max);
@@ -204,12 +195,12 @@ public class BlackJackGameManager : MonoBehaviour
         //_effect.ExecuteAllEffects();
     }
 
-    //betting 
 
     /// <summary>
-    /// player has clicked Deal button
-    /// 
+    /// player is happy with their bet, deal cards
     /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void DealClicked(object sender, EventArgs e)
     {
         audioSource.pitch = Random.Range(0, 2);
@@ -252,7 +243,11 @@ public class BlackJackGameManager : MonoBehaviour
         //}
     }
 
-
+    /// <summary>
+    /// player has sected to hit which gives player another card
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void HitClicked(object sender, EventArgs e)
     {
         audioSource.pitch = Random.Range(min, max);
@@ -268,7 +263,11 @@ public class BlackJackGameManager : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// player is happy with current hand
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void StandClicked(object sender, EventArgs e)
     {
         audioSource.pitch = Random.Range(min, max);
@@ -290,7 +289,9 @@ public class BlackJackGameManager : MonoBehaviour
 
 
     }
-
+/// <summary>
+/// player asks for another card
+/// </summary>
     private void HitDealer()
     {
         audioSource.pitch = Random.Range(0, 2);
@@ -305,6 +306,9 @@ public class BlackJackGameManager : MonoBehaviour
             }
         
     }
+    /// <summary>
+    /// round is over function
+    /// </summary>
     //check for winner 
     void RoundOver()
     {
@@ -384,6 +388,10 @@ public class BlackJackGameManager : MonoBehaviour
     }
 
     //add money to pot if bet clicked
+    /// <summary>
+    /// player bet increases depending on how far they dragged the joystick
+    /// </summary>
+    /// <param name="distance"></param>
     void BetClicked(float distance)
     {
         
@@ -414,6 +422,10 @@ public class BlackJackGameManager : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// minuses bet amount
+    /// </summary>
+    /// <param name="distance"></param>
     void BetMinus(float distance)
     {
         if (pot < 0)
