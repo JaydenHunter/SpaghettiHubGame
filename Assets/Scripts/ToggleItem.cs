@@ -1,7 +1,6 @@
 ﻿//Written by Jayden Hunter
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 /// <summary>
 /// Used for Toggling Items On and Off

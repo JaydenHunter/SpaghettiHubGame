@@ -1,12 +1,12 @@
 ﻿//Written by Jayden Hunter
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
+/// <summary>
+/// Handles the cat's Wander State
+/// </summary>
 public class CatStateWander : CatState
 {
 	public Transform wanderTarget = null;

@@ -1,7 +1,4 @@
 ﻿//Written by Jayden Hunter
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class CatStateIdle : CatState
 {

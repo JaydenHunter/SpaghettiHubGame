@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles all the sound for the Cat
+/// </summary>
 public class CatSoundManager : MonoBehaviour
 {
 	private AudioSource loopingSound = null;
@@ -24,7 +27,7 @@ public class CatSoundManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 
+	/// Plays a looping sound
 	/// </summary>
 	/// <param name="clipName"></param>
 	public void PlayLooping(string clipName)
@@ -37,7 +40,7 @@ public class CatSoundManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 
+	/// Plays a sound once
 	/// </summary>
 	/// <param name="clipName"></param>
 	/// <param name="resetPitch"></param>
@@ -89,6 +92,9 @@ public class CatSoundManager : MonoBehaviour
 		return false;
 	}
 
+	/// <summary>
+	/// Stores the data of an audio clip
+	/// </summary>
 	[Serializable]
 	public struct AudioClipData
 	{

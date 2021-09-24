@@ -63,6 +63,4 @@ public class CatAnimationHandler : MonoBehaviour
 		animator.speed = animationSpeed;
 		return PlayAnimation(animation, true, false);
 	}
-
-
 }
