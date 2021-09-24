@@ -19,10 +19,12 @@ public class BlackJackGameManager : MonoBehaviour
     public Image hitBtn;
     public Image standBtn;
     public Image betBtn;
+    public Image returnBtn;
     public DeckHand deckHand;
     private int standClicks = 0;
     private bool _bCanBet = true;
     JoyController controller;
+    private SceneLoader sceneLoader;
 
     // access the player and dealers hand
     public CardPlayer playerScript;
@@ -53,6 +55,7 @@ public class BlackJackGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sceneLoader = GetComponent<SceneLoader>();
         audioSource = GetComponent<AudioSource>();
         //adding OnClick Listeners to the buttons
         cashText.text = "Bank : $" + playerScript.GetAdjustMoney.ToString();
@@ -78,6 +81,11 @@ public class BlackJackGameManager : MonoBehaviour
                 //disable all othe
                 controller.DragUp += BetClicked;
                 controller.DragDown += BetMinus;
+
+                controller.DragLeftRelease += ReturnToMain;
+                controller.DragLeft += ReturnToMainSelected;
+                
+
                 //controller.DragDown += BetMinus;
                 betsText.text = "$0 : Bet";
                 pot = 0;
@@ -87,6 +95,7 @@ public class BlackJackGameManager : MonoBehaviour
                 playerScript.ResetHand();
                 dealerScript.ResetHand();
                 //betBtn.gameObject.SetActive(true);
+                returnBtn.gameObject.SetActive(false);
                 betsText.gameObject.SetActive(true);
                 dealBtn.gameObject.SetActive(false);
                 hitBtn.gameObject.SetActive(false);
@@ -102,6 +111,8 @@ public class BlackJackGameManager : MonoBehaviour
                 break;
             case _eBlackJackStates.DEALING:
                 //Debug.Log("pooop");
+                controller.DragLeftRelease -= ReturnToMain;
+                controller.DragLeft -= ReturnToMainSelected;
                 controller.DragUp -= BetClicked;
                 controller.DragDown -= BetMinus;
                 controller.DragRightRelease -= DealClicked;
@@ -172,7 +183,7 @@ public class BlackJackGameManager : MonoBehaviour
     /// </summary>
     /// <param name="sender">your event params</param>
     /// <param name="e">your event params</param>
-    void HitSelected(object sender, EventArgs e)
+    void HitSelected(bool pressed)
     {
         audioSource.pitch = Random.Range(min, max);
         audioSource.PlayOneShot(audioClips[0], audioVolume[0]);
@@ -192,7 +203,23 @@ public class BlackJackGameManager : MonoBehaviour
         audioSource.PlayOneShot(audioClips[0], audioVolume[0]);
         //uiEffectedImage = standBtn.GetComponent<Image>();
         dealBtn.GetComponent<BasicUIEffect>().uiEffect.ExecuteAllEffects();
+        OffReturn();
         //_effect.ExecuteAllEffects();
+    }
+
+    void ReturnToMain(object sender, EventArgs e)
+    {
+        sceneLoader.LoadMainScene();
+    }
+    void ReturnToMainSelected(bool down)
+    {
+        returnBtn.gameObject.SetActive(true);
+        returnBtn.GetComponent<BasicUIEffect>().uiEffect.ExecuteAllEffects();
+    }
+    void OffReturn()
+    {
+        returnBtn.gameObject.SetActive(false);
+        
     }
 
 
@@ -394,7 +421,7 @@ public class BlackJackGameManager : MonoBehaviour
     /// <param name="distance"></param>
     void BetClicked(float distance)
     {
-        
+        OffReturn();
         //Debug.Log("up");
 
         if (pot > 0 && !dealBtn.gameObject.activeSelf)
@@ -406,17 +433,31 @@ public class BlackJackGameManager : MonoBehaviour
         }
         if (playerScript.GetAdjustMoney > 0)
         {
+
             audioSource.pitch = Random.Range(min,max);
             audioSource.PlayOneShot(audioClips[0], audioVolume[0]);
             Debug.Log("sdfgjsdlgjsdlgkjl");
             Debug.Log(distance);
-            int cash = (int)Mathf.Abs(distance / 100) ;
-           // cash = (cash > 1) ? cash : 1;
-            Debug.Log(cash);
-            playerScript.GetAdjustMoney -= cash; 
-            pot += cash*2;
-            //betsText.text = "$ " + pot.ToString();
-            //playerScript.GetAdjustMoney -= 20;
+
+            int cash = (int)Mathf.Abs(distance / 100);
+            if (cash > playerScript.GetAdjustMoney)
+            {
+                pot += (playerScript.GetAdjustMoney) * 2;
+                playerScript.GetAdjustMoney = 0;
+
+            }
+            else
+            {
+                // cash = (cash > 1) ? cash : 1;
+                Debug.Log(cash);
+
+                playerScript.GetAdjustMoney -= cash;
+                pot += cash * 2;
+                //betsText.text = "$ " + pot.ToString();
+                //playerScript.GetAdjustMoney -= 20;
+               
+
+            }
             cashText.text = "Bank : $" + playerScript.GetAdjustMoney.ToString();
             betsText.text = "$" + (pot / 2).ToString() + " : Bet";
         }
@@ -428,6 +469,7 @@ public class BlackJackGameManager : MonoBehaviour
     /// <param name="distance"></param>
     void BetMinus(float distance)
     {
+        OffReturn();
         if (pot < 0)
         {
 
@@ -438,13 +480,24 @@ public class BlackJackGameManager : MonoBehaviour
         }
 
 
-        if (pot > 1)
+        if (pot > 0)
         {
-            audioSource.pitch = Random.Range(min, max);
-            audioSource.PlayOneShot(audioClips[0], audioVolume[0]);
-            pot -= 2;
-            //betsText.text = "$ " + pot.ToString();
-            playerScript.GetAdjustMoney += 1;
+            int cash = (int)Mathf.Abs(distance / 100);
+            if (cash > pot / 2)
+            {
+                playerScript.GetAdjustMoney += pot / 2;
+                pot = 0;
+
+            }
+            else
+            {
+                audioSource.pitch = Random.Range(min, max);
+                audioSource.PlayOneShot(audioClips[0], audioVolume[0]);
+                pot -= cash/2;
+                //betsText.text = "$ " + pot.ToString();
+                playerScript.GetAdjustMoney += cash / 2;
+                
+            }
             cashText.text = "Bank : $" + playerScript.GetAdjustMoney.ToString();
             betsText.text = "$" + (pot / 2).ToString() + " : Bet";
         }

@@ -15,6 +15,7 @@ public class PanelMovement : MonoBehaviour
     private bool select;
     public int optionIter;
    
+   
 
     //gameobjects of the same size as the panel, that you can position in the editor.
     //The panel will go to the location of these empty objects.
@@ -36,11 +37,15 @@ public class PanelMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<JoyController>();
-        controller.DragRight += SetUpController;
-        controller.DragRight += OnPressOpenMenu;
-        controller.DragLeft += OnPressCloseMenu;
-        controller.DragLeft += UnsubscribeMain;
-;
+        //controller.DragRight += SetUpController;
+        //controller.DragRight += OnPressOpenMenu;
+       // controller.DragLeft += OnPressCloseMenu;
+        controller.DragLeft += OnSlideLeft;
+
+        controller.HoldMouse += OnPressOpenMenu;
+        controller.DragUp += NextOption;
+        controller.DragDown += PreviousOption;
+        controller.DragLeft += OnPressOpenMenu;
 
         //Set menu to be offscreen on game start
         gameObject.transform.position = offScreenPosition.transform.position;
@@ -95,21 +100,21 @@ public class PanelMovement : MonoBehaviour
     /// <summary>
     /// When this function is called, it will tell the menu to slide onto the screen, or "open the menu"
     /// </summary>
-    public void OnPressOpenMenu(object sender, EventArgs e)
+    public void OnPressOpenMenu( bool pressed)
     {
-        slideOnScreen = true;
+        if (pressed)
+            slideOnScreen = true;
+        else slideOffScreen = true;
     }
-    
-
-    /// <summary>
-    /// When this function is called, it will tell the menu to slide off of the screen, or "close the menu"
-    /// </summary>
-    public void OnPressCloseMenu(object sender, EventArgs e)
+    public void OnSlideLeft(bool on)
     {
+
         slideOffScreen = true;
     }
+
+
     //*************************************************************************************
-    //TOM'S ADDITIONS
+    //              TOM'S ADDITIONS
     //*************************************************************************************
 
     /// <summary>
@@ -119,15 +124,13 @@ public class PanelMovement : MonoBehaviour
     /// <param name="e"></param>
     void SetUpController(object sender, EventArgs e)
     {
+        Debug.Log("Set Up");
         if (!select)
         {
             controller.DragUp += NextOption;
             controller.DragDown += PreviousOption;
         }
         select = true;
-        
-        
-        
 
     }
     /// <summary>
@@ -135,17 +138,17 @@ public class PanelMovement : MonoBehaviour
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void UnsubscribeMain(object sender, EventArgs e)
+    void UnsubscribeMain(bool hold)
     {
+        Debug.Log("UnSet");
         if (select)
         {
             controller.DragUp -= NextOption;
             controller.DragDown -= PreviousOption;
         }
-        select = true;
+        select = false;
 
-    }
-    /// <summary>
+    } /// <summary>
     /// next option
     /// subscribe up down events/unsubscribe last button
     /// </summary>
@@ -159,10 +162,9 @@ public class PanelMovement : MonoBehaviour
 
         //subscribe to new event
        GetOptionSubscribe((Mathf.Abs(optionIter) % 5), true);
-        Debug.Log("iter " + (Mathf.Abs(optionIter) % 5));
-        //optionIter = optionIter > optionsImages.Count ? 0 : optionIter++;
+       
         //diplay option ui effect
-        optionsImages[Mathf.Abs(optionIter) % 5].gameObject.GetComponent<BasicUIEffect>().uiEffect.ExecuteAllEffects();
+        optionsImages[Mathf.Abs(optionIter) % 5].gameObject.GetComponent<BasicTextEffect>().uiEffect.ExecuteAllEffects();
 
     }
     /// <summary>
@@ -177,10 +179,9 @@ public class PanelMovement : MonoBehaviour
         //subscribe
         //switch Statment for what item they have selected
        GetOptionSubscribe((Mathf.Abs(optionIter) % 5), true);
-        Debug.Log("iter " + (Mathf.Abs(optionIter) % 5) );
-        //optionIter = optionIter < 1 ? 0 : optionsImages.Count -1;
+
         //diplay option ui effect
-        optionsImages[Mathf.Abs(optionIter) % 5].gameObject.GetComponent<BasicUIEffect>().uiEffect.ExecuteAllEffects();
+        optionsImages[Mathf.Abs(optionIter) % 5].gameObject.GetComponent<BasicTextEffect>().uiEffect.ExecuteAllEffects();
     }
     /// <summary>
     /// subscribe up down events/unsubscribe last button
@@ -231,8 +232,7 @@ public class PanelMovement : MonoBehaviour
                 if (SubUnsub)
                 { 
                     controller.DragUpRelease += optionsImages[4].gameObject.GetComponent<MainMenuScript>().QuitGame;
-                }
-                else
+                               }   else
                     controller.DragUpRelease -= optionsImages[4].gameObject.GetComponent<MainMenuScript>().QuitGame;
                 break;
 

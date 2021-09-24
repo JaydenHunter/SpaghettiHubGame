@@ -48,7 +48,7 @@ namespace Tween_Library.Scripts.Effects
             time = 0f;
             while (SliderFill.color != DefaultColor)
             {
-                time += Time.deltaTime * 10;
+                time += Time.deltaTime * 1;
                 var color = Color.Lerp(TakeDammageColor, DefaultColor, time);
                 SliderFill.color = color;
                 yield return null;

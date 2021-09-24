@@ -739,11 +739,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 293020015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9938e3c5e92e39b46a1263871b13cc9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e597024bd9eb874197b0228451f8402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiOriginal: {r: 1, g: 1, b: 1, a: 1}
+  Flash: {r: 0.972549, g: 0.9647059, b: 0.70980394, a: 1}
   scaleMax: {x: 1.1, y: 1.1, z: 1}
-  scaleSpeed: 8
+  scaleSpeed: 25
   rotationMax: 2
   speedShake: 8
 --- !u!1 &321583817
@@ -1680,11 +1682,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 618009949}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9938e3c5e92e39b46a1263871b13cc9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e597024bd9eb874197b0228451f8402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiOriginal: {r: 1, g: 1, b: 1, a: 1}
+  Flash: {r: 0.972549, g: 0.9647059, b: 0.70980394, a: 1}
   scaleMax: {x: 1.1, y: 1.1, z: 1}
-  scaleSpeed: 8
+  scaleSpeed: 25
   rotationMax: 2
   speedShake: 8
 --- !u!1 &626155229
@@ -1963,13 +1967,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 638022487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9938e3c5e92e39b46a1263871b13cc9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e597024bd9eb874197b0228451f8402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiOriginal: {r: 1, g: 1, b: 1, a: 1}
+  Flash: {r: 0.972549, g: 0.9647059, b: 0.70980394, a: 1}
   scaleMax: {x: 1.1, y: 1.1, z: 1}
-  scaleSpeed: 2
+  scaleSpeed: 25
   rotationMax: 2
-  speedShake: 1
+  speedShake: 8
 --- !u!1 &718186936
 GameObject:
   m_ObjectHideFlags: 0
@@ -2678,11 +2684,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 958554002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9938e3c5e92e39b46a1263871b13cc9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e597024bd9eb874197b0228451f8402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiOriginal: {r: 1, g: 1, b: 1, a: 1}
+  Flash: {r: 0.972549, g: 0.9647059, b: 0.70980394, a: 1}
   scaleMax: {x: 1.1, y: 1.1, z: 1}
-  scaleSpeed: 8
+  scaleSpeed: 25
   rotationMax: 2
   speedShake: 8
 --- !u!1 &960738852
@@ -3800,11 +3808,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1484718277}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9938e3c5e92e39b46a1263871b13cc9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e597024bd9eb874197b0228451f8402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiOriginal: {r: 1, g: 1, b: 1, a: 1}
+  Flash: {r: 0.972549, g: 0.9647059, b: 0.70980394, a: 1}
   scaleMax: {x: 1.1, y: 1.1, z: 1}
-  scaleSpeed: 8
+  scaleSpeed: 25
   rotationMax: 2
   speedShake: 8
 --- !u!1 &1605405239
@@ -4346,11 +4356,16 @@ MonoBehaviour:
   circleImg: {fileID: 0}
   outerCircleImg: {fileID: 0}
   touchStart: 0
-  minRangeDetect: 100
+  LeftRange: 0
+  RightRange: 50
+  UpRange: 50
+  DownRange: 50
+  minRangeDetect: 50
   hasSelection: 0
   clickRelease: 0
-  disengageButton: 1
+  disengageButton: 0
   joyDistance: 0
+  mousetouchFunctional: 1
   pointA: {x: 0, y: 0}
   pointB: {x: 0, y: 0}
   hitTimer: 0.75
@@ -4715,11 +4730,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2035803566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9938e3c5e92e39b46a1263871b13cc9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e597024bd9eb874197b0228451f8402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiOriginal: {r: 1, g: 1, b: 1, a: 1}
+  Flash: {r: 0.972549, g: 0.9647059, b: 0.70980394, a: 1}
   scaleMax: {x: 1.1, y: 1.1, z: 1}
-  scaleSpeed: 8
+  scaleSpeed: 25
   rotationMax: 2
   speedShake: 8
 --- !u!1 &2046423645
