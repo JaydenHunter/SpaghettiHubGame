@@ -1,50 +1,57 @@
 ﻿//Written by Jayden Hunter
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages most of the basic game logic such as money
+/// </summary>
 public class GameManager : MonoBehaviour
 {
-	public bool SceneHasCat = false;
-	public int money = 0;
-	public int moneyPerSecondHappy = 1;
-	public int moneyPerSecondModerate = 1;
-	public int moneyPerSecondOther = 0;
-	public CatMoodHandler mood;
+	public bool SceneHasCat = false;			//Determines if the current scene has the cat
+	public int money = 0;						//The amount of money the player currently has
+	public int moneyPerIntervalHappy = 3;		//Money gained per interval when the cat is happy
+	public int moneyPerIntervalModerate = 2;	//Money gained per interval when the cat is moderate
+	public int moneyPerIntervalOther = 1;		//Money gained per interval when the cat is in any other mood
+	public CatMoodHandler mood;					//The cat's current mood
+
 	private float timer = 5;
 
 	private void Awake()
 	{
+		//Find the cat object if the current scene has the cat
 		if (SceneHasCat)
 			mood = GameObject.Find("Cat").GetComponent<CatMoodHandler>();
 	}
 
 	private void Update()
 	{
+		//If the current scene has a cat...
 		if (SceneHasCat)
 		{
 			timer -= Time.deltaTime;
-
+			//...And Timer is at or below 0...
 			if (timer <= 0)
 			{
+				//...Increase money each interval depening on it's current mood
 				switch (mood.CurrentMood)
 				{
 					case MoodStatus.Happy:
-						money += moneyPerSecondHappy;
+						money += moneyPerIntervalHappy;
 						break;
 					case MoodStatus.Moderate:
-						money += moneyPerSecondModerate;
+						money += moneyPerIntervalModerate;
 						break;
 					default:
-						money += moneyPerSecondOther;
+						money += moneyPerIntervalOther;
 						break;
 				}
 
+				//Reset the timer
 				timer = 5;
 			}
 		}
 
+		//Used for testing to gain money once space is pressed
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
 			money += 50;

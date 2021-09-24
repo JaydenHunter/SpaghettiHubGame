@@ -1,6 +1,5 @@
 ﻿//Written by Jayden Hunter
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +23,10 @@ public class CatSoundManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="clipName"></param>
 	public void PlayLooping(string clipName)
 	{
 		if (FindClipByName(clipName, out AudioClip clip))
@@ -33,6 +36,11 @@ public class CatSoundManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="clipName"></param>
+	/// <param name="resetPitch"></param>
 	public void PlaySingle(string clipName, bool resetPitch = true)
 	{
 		if (resetPitch)
@@ -45,12 +53,24 @@ public class CatSoundManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Used to play a sound once
+	/// </summary>
+	/// <param name="clipName"></param>
+	/// <param name="minPitch"></param>
+	/// <param name="maxPitch"></param>
 	public void PlaySingle(string clipName, float minPitch, float maxPitch)
 	{
 		singlePlaySound.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
 		PlaySingle(clipName, false);
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="clipName"></param>
+	/// <param name="clip"></param>
+	/// <returns></returns>
 	private bool FindClipByName(string clipName, out AudioClip clip)
 	{
 		clip = null;
