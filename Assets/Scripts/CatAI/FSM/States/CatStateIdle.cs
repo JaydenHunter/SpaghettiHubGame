@@ -1,5 +1,8 @@
 ﻿//Written by Jayden Hunter
 
+/// <summary>
+/// Handles the idle state of the Cat
+/// </summary>
 public class CatStateIdle : CatState
 {
 	public override void OnEnter()

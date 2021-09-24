@@ -1,8 +1,9 @@
 ﻿//Written by Jayden Hunter
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the Follow State of the Cat
+/// </summary>
 public class CatStateFollow : CatState
 {
 	private Transform followTransform = null;
