@@ -9,7 +9,6 @@ using System;
 public class ToggleItem : MonoBehaviour
 {
 	JoyController controller;
-	private GameManager gameManager;
 	public GameObject item;
 	public int cost;
 	public bool resetPosition = true;		//Used to determine if it's position should be reset on toggle
