@@ -8,23 +8,22 @@ using System;
 /// </summary>
 public class ToggleItem : MonoBehaviour
 {
-	JoyController controller;
-	public GameObject item;
-	public int cost;
-	public bool resetPosition = true;		//Used to determine if it's position should be reset on toggle
+	JoyController controller;				
+	public GameObject item;					//	Item to toggle
+	public int cost;						//	Cost to buy Item
+	public bool resetPosition = true;		//	Used to determine if it's position should be reset on toggle
 	private Button button;
-	private GameManager gameManager;		//Reference to Gamemanger script
-	private Vector3 spawnLocation;			//Location where the item will spawn
+	private GameManager gameManager;		//	Reference to Gamemanger script
+	private Vector3 spawnLocation;			//	Location where the item will spawn
 
 	// Start is called before the first frame update
 	void Start()
-	{
+	{
 		controller = GetComponent<JoyController>();
 		button = GetComponent<Button>();
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		spawnLocation = item.transform.position;
 		item.SetActive(false);
-
 	}
 
 	/// <summary>

@@ -82,7 +82,7 @@ public class BlackJackGameManager : MonoBehaviour
                 controller.DragUp += BetClicked;
                 controller.DragDown += BetMinus;
 
-                controller.DragLeftRelease += ReturnToMain;
+                //controller.DragLeftRelease += ReturnToMain;
                 controller.DragLeft += ReturnToMainSelected;
                 
 
@@ -111,7 +111,7 @@ public class BlackJackGameManager : MonoBehaviour
                 break;
             case _eBlackJackStates.DEALING:
                 //Debug.Log("pooop");
-                controller.DragLeftRelease -= ReturnToMain;
+               // controller.DragLeftRelease -= ReturnToMain;
                 controller.DragLeft -= ReturnToMainSelected;
                 controller.DragUp -= BetClicked;
                 controller.DragDown -= BetMinus;
@@ -207,10 +207,11 @@ public class BlackJackGameManager : MonoBehaviour
         //_effect.ExecuteAllEffects();
     }
 
-    void ReturnToMain(object sender, EventArgs e)
-    {
-        sceneLoader.LoadMainScene();
-    }
+    //void ReturnToMain(object sender, EventArgs e)
+    //{
+    //    sceneLoader.LoadMainScene();
+    //}
+
     void ReturnToMainSelected(bool down)
     {
         returnBtn.gameObject.SetActive(true);

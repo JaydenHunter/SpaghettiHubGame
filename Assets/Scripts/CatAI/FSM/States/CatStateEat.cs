@@ -20,7 +20,6 @@ public class CatStateEat : CatState
 
 	public override void OnUpdate()
 	{
-		
 
 		if (manager.Mood.CheckPriorityChange(ECatState.Eat))
 			stateMachine.ChangeState(ECatState.Idle);
