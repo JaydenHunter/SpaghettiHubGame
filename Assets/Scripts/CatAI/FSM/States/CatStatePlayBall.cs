@@ -22,6 +22,10 @@ public class CatStatePlayBall : CatState
 		
 	}
 
+	/// <summary>
+	/// Checks that the play ball exists
+	/// </summary>
+	/// <returns></returns>
 	private bool CheckBallExists()
 	{
 		if (!ball.gameObject.activeInHierarchy)

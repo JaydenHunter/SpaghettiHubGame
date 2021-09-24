@@ -1,8 +1,8 @@
 ﻿//Written by Jayden Hunter
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
+/// <summary>
+/// Handles the idle state of the Cat
+/// </summary>
 public class CatStateIdle : CatState
 {
 	public override void OnEnter()

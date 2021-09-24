@@ -1,6 +1,9 @@
 ﻿//Written by Jayden Hunter
 using UnityEngine;
 
+/// <summary>
+/// Manages all functions of the cat
+/// </summary>
 [RequireComponent(typeof(CatStateMachine))]
 [RequireComponent(typeof(CatSoundManager))]
 [RequireComponent(typeof(CatMovementHandler))]
@@ -8,14 +11,15 @@ using UnityEngine;
 [RequireComponent(typeof(CatMoodHandler))]
 public class CatManager : MonoBehaviour
 {
-	private CatStateMachine stateMachine;
-	private CatSoundManager soundManager;
-	private CatMovementHandler movementHandler;
-	private CatAnimationHandler animationHandler;
-	private CatMoodHandler moodHandler;
+	private CatStateMachine stateMachine; //Reference to the state machine
+	private CatSoundManager soundManager; //Reference to the sound manager
+	private CatMovementHandler movementHandler; //Reference to the movement manager
+	private CatAnimationHandler animationHandler; //Reference to the animation manager
+	private CatMoodHandler moodHandler; //Reference to the mood manager
 
 	private void Awake()
 	{
+		//Get Required Components
 		stateMachine = GetComponent<CatStateMachine>();
 		soundManager = GetComponent<CatSoundManager>();
 		movementHandler = GetComponent<CatMovementHandler>();
@@ -26,6 +30,7 @@ public class CatManager : MonoBehaviour
 
 	private void Update()
 	{
+		//Update the mood handler
 		moodHandler.HandleMood();
 	}
 

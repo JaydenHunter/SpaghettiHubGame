@@ -1,14 +1,16 @@
 ﻿//Written by Jayden Hunter
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the Eat State of the cat
+/// </summary>
 public class CatStateEat : CatState
 {
 	public Transform foodBowl;
 	public float minDistToEat = 1.0f;
 	public float hungerReduction = 0.0005f; //Put this on the food
 	private float maxSpeed = 1;
+
 	public override void OnEnter()
 	{
 		if (!CheckTransformExists())
@@ -25,6 +27,7 @@ public class CatStateEat : CatState
 			stateMachine.ChangeState(ECatState.Idle);
 	}
 
+	//Check that the transform exists
 	private bool CheckTransformExists()
 	{
 		if (!foodBowl.gameObject.activeInHierarchy)

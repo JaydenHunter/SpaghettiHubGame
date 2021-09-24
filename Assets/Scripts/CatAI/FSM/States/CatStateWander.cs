@@ -1,12 +1,12 @@
 ﻿//Written by Jayden Hunter
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
+/// <summary>
+/// Handles the cat's Wander State
+/// </summary>
 public class CatStateWander : CatState
 {
 	public Transform wanderTarget = null;
@@ -65,17 +65,21 @@ public class CatStateWander : CatState
 
 	}
 
+	/// <summary>
+	/// Randomizes the position the cat walks to
+	/// </summary>
 	private void RandomizeWanderPos()
 	{
 		float halfX = wanderAreaSize.x / 2;
 		float halfZ = wanderAreaSize.z / 2;
-		 Vector3 newPos = new Vector3(Random.Range(-halfX,halfX), 0, Random.Range(-halfZ,halfZ));
+		Vector3 newPos = new Vector3(Random.Range(-halfX, halfX), 0, Random.Range(-halfZ, halfZ));
 		newPos.x += wanderAreaOrigin.x;
 		newPos.z += wanderAreaOrigin.z;
 		wanderTarget.position = newPos;
 		manager.Movement.FollowTarget = wanderTarget;
 	}
 
+	//Editor Code
 #if UNITY_EDITOR
 
 	[Header("Editor Tools")]
@@ -99,7 +103,7 @@ public class CatStateWander : CatState
 	private void DrawWanderTarget()
 	{
 		Gizmos.color = Color.green;
-		Gizmos.DrawSphere(wanderTarget.position,0.25f);
+		Gizmos.DrawSphere(wanderTarget.position, 0.25f);
 	}
 #endif
 
