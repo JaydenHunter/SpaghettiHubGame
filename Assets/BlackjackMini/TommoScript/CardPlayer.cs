@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿///Tomas Munro's Script
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,8 +8,7 @@ public class CardPlayer : MonoBehaviour
 {
     public GameManager gameManager;
     //-- this script is for both for player and dealer
-    // Start is called before the first frame update
-    //Get other scripts
+    //Get other cards
     public CardScript cardScript;
     public DeckHand deckScript;
     // total value of player/dealers hand
@@ -23,17 +23,25 @@ public class CardPlayer : MonoBehaviour
     public int cardIndex = 0;
     //tracking aces for 1 to 11 conversions
     List<CardScript> aceList = new List<CardScript>();
+    //Get the money from main scene
     private void Start()
     {
         money = gameManager.money;
     }
+    /// <summary>
+    /// get two cards to start game
+    /// </summary>
     public void StartHand()
     {
        
         GetCard();
         GetCard();
     }
-    //add a hand to the player/dealer's handw
+    //add a hand to the player/dealer's hand
+    /// <summary>
+    /// Get new card
+    /// </summary>
+    /// <returns></returns>
     public int GetCard()
     {
         // Get a card, use deal card to assign sprite and value to card on table
@@ -54,7 +62,9 @@ public class CardPlayer : MonoBehaviour
         cardIndex++;
         return handValue;
     }
-
+    /// <summary>
+    /// check for ace's
+    /// </summary>
     public void AceCheck()
     {
         //for each ace in the listr check
@@ -73,7 +83,7 @@ public class CardPlayer : MonoBehaviour
                 handValue -= 10;
             }
         }
-        //aceList.Add(hand[cardIndex].GetComponent<CardScript>());
+       
     }
     //Get money
     public int GetAdjustMoney { get => gameManager.money; set => gameManager.money = value; }

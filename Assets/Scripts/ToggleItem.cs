@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ToggleItem : MonoBehaviour
 {
+	JoyController controller;
 	private GameManager gameManager;
 	public GameObject item;
 	public int cost;
@@ -16,13 +18,15 @@ public class ToggleItem : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		controller = GetComponent<JoyController>();
 		button = GetComponent<Button>();
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		spawnLocation = item.transform.position;
 		item.SetActive(false);
+
 	}
 
-	public void ToggleActive()
+	public void ToggleActive(float joyDistance)
 	{
 		bool active = item.activeInHierarchy;
 		if (!active)

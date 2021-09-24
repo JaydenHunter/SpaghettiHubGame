@@ -18,7 +18,7 @@ public class SceneLoader : MonoBehaviour
 		saveManager = gameManager.GetComponent<SaveManager>();
 	}
 
-	public void LoadBlackJackGame()
+	public void LoadBlackJackGame(float joyDistance)
 	{
 		saveManager.Save();
 		sceneNameToLoad="TomMiniGame";
@@ -32,7 +32,7 @@ public class SceneLoader : MonoBehaviour
 		StartCoroutine(LoadScene());
 	}
 
-	public void LoadMainMenu()
+	public void LoadMainMenu(float joyDistance)
 	{
 		saveManager.Save();
 		sceneNameToLoad = "Main Menu";

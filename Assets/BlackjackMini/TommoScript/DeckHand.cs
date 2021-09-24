@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿///Tomas Munro's Script
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,14 +8,15 @@ public class DeckHand : MonoBehaviour
     public Sprite[] cardSprites;
     int[] cardValues = new int[53];
     int currentIndex = 0;
-
-
     // Start is called before the first frame update
     void Start()
     {
         GetCardValues();
 
     }
+    /// <summary>
+    /// get card values
+    /// </summary>
     void GetCardValues()
     {
         int num = 0;
@@ -33,6 +35,9 @@ public class DeckHand : MonoBehaviour
             cardValues[i] = num++;
         }
     }
+    /// <summary>
+    /// shuffle cards 
+    /// </summary>
     public void Shuffle()
     {
         // Standard array data swapping technique
@@ -51,7 +56,11 @@ public class DeckHand : MonoBehaviour
 
     }
 
-    
+    /// <summary>
+    /// deals card to hand
+    /// </summary>
+    /// <param name="cardScript"></param>
+    /// <returns></returns>
     public int DealCard(CardScript cardScript)
     {
        cardScript.SetSprite(cardSprites[currentIndex]);
@@ -59,6 +68,10 @@ public class DeckHand : MonoBehaviour
         ++currentIndex;
         return cardScript.GetValueOfCard;
     }
+    /// <summary>
+    /// get card back 
+    /// </summary>
+    /// <returns></returns>
     public Sprite GetCardBack()
     {
         return cardSprites[0];

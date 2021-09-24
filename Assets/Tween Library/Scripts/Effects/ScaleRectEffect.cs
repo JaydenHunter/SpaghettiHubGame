@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿///Tomas Munro's Script
+using UnityEngine;
 using System.Collections;
 
 namespace Tween_Library.Scripts.Effects
@@ -10,7 +11,13 @@ namespace Tween_Library.Scripts.Effects
         private float ScaleSpeed { get;}
         private YieldInstruction Wait { get; }
 
-
+        /// <summary>
+        /// scale ui 
+        /// </summary>
+        /// <param name="rectTransform"> </param>
+        /// <param name="maxSize"></param>
+        /// <param name="scaleSpeed"></param>
+        /// <param name="wait"></param>
         public ScaleRectEffect(RectTransform rectTransform,Vector3 maxSize, float scaleSpeed, YieldInstruction wait)
         {
             RectTransform = rectTransform;
@@ -18,7 +25,10 @@ namespace Tween_Library.Scripts.Effects
             ScaleSpeed = scaleSpeed;
             Wait = wait;
         }
-
+        /// <summary>
+        /// execute scale effect
+        /// </summary>
+        /// <returns></returns>
        public IEnumerator Execute()
         {
             var time = 0f;
