@@ -23,7 +23,7 @@ public class SceneLoader : MonoBehaviour
 	/// <summary>
 	/// Loads the BlackJack minigame and saves cat's data and money data
 	/// </summary>
-	public void LoadBlackJackGame()
+	public void LoadBlackJackGame(float joyDistance)
 	{
 		saveManager.Save();
 		sceneNameToLoad = "TomMiniGame";
@@ -43,7 +43,7 @@ public class SceneLoader : MonoBehaviour
 	/// <summary>
 	/// Loads the Main Menu from the Cat Scene
 	/// </summary>
-	public void LoadMainMenu()
+	public void LoadMainMenu(float joyDistance)
 	{
 		saveManager.Save();
 		sceneNameToLoad = "Main Menu";

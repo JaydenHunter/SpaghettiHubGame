@@ -1,33 +1,37 @@
 ﻿//Written by Jayden Hunter
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// Used for Toggling Items On and Off
 /// </summary>
 public class ToggleItem : MonoBehaviour
 {
-	public GameObject item;					//The Item to toggle
-	public int cost;						//The cost of toggling the item
+	JoyController controller;
+	private GameManager gameManager;
+	public GameObject item;
+	public int cost;
 	public bool resetPosition = true;		//Used to determine if it's position should be reset on toggle
-
 	private Button button;
 	private GameManager gameManager;		//Reference to Gamemanger script
 	private Vector3 spawnLocation;			//Location where the item will spawn
 
 	// Start is called before the first frame update
 	void Start()
-	{
+	{
+		controller = GetComponent<JoyController>();
 		button = GetComponent<Button>();
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		spawnLocation = item.transform.position;
 		item.SetActive(false);
+
 	}
 
 	/// <summary>
 	/// Toggle's whether the item is active or not
 	/// </summary>
-	public void ToggleActive()
+	public void ToggleActive(float joyDistance)
 	{
 		bool active = item.activeInHierarchy;
 
